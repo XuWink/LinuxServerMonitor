@@ -1,6 +1,5 @@
 FROM ubuntu:20.04
 
-
 # 配置apt，删除软件包和配置软件源
 RUN apt-get clean && apt-get autoclean
 
