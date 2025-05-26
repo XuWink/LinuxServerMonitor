@@ -1,0 +1,16 @@
+// 该文件将所有要监测的模块集中到一起，形成一个总的protobuf文件
+
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+package monitor.proto;
+
+message MonitorInfo {
+    string name = 1;                    // monitor名字
+    repeated CpuInfo cpu_info = 2;      // cpu信息，repeated表示cpu_info是一个列表，用于多cpu系统
+}
+
+service GrpcManager {
+    rpc SetMonitorInfo(MonitorInfo) returns (google.protobuf.Empty){}
+    rpc GetMonitorInfo(google.protobuf.Empty) returns (MonitorInfo){}
+}

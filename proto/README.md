@@ -1,0 +1,3 @@
+monitor.proto是整个项目的数据结构，规定结点之间的数据通信格式。
+
+protobuf是grpc默认的数据序列化
