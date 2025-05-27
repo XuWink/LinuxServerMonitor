@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker build -t linux_monitor ../build/
+docker build -t my-dev-env ../build/
