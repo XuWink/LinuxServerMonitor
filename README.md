@@ -5,6 +5,26 @@
 # 1. 结构
 
 ```
+.
+├── CMakeLists.txt          # 根目录总控
+├── proto/
+│   └── CMakeLists.txt      # Protobuf 代码生成
+├── rpc_manager/
+│   ├── client/
+│   │   └── CMakeLists.txt  # 客户端模块
+│   └── server/
+│       └── CMakeLists.txt  # 服务端模块
+├── utils/
+│   └── CMakeLists.txt      # 工具库
+├── test/
+│   └── CMakeLists.txt      # 测试模块
+└── monitor_view/
+    └── CMakeLists.txt      # 监控界面模块（可选）
+```
+
+# 2. 流程结构
+
+```
 ┌───────────────────────────────────────────────────────────────────┐
 │                           客户端(电脑A)                            │
 │  ┌───────────────┐     ┌───────────────────────────────────────┐  │
