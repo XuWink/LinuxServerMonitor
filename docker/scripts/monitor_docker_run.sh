@@ -32,6 +32,7 @@ docker run -it -d \
 --name linux_monitor \
 -e DISPLAY=$display \
 --privileged=true \
+--volume /tmp/.X11-unix:/tmp/.X11-unix \
 -e DOCKER_USER="${user}" \
 -e USER="${user}" \
 -e DOCKER_USER_ID="${uid}" \
