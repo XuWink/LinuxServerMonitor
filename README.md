@@ -2,6 +2,16 @@
 
 服务器监控系统
 
+
+编译：
+
+mkdir build && cd build
+
+cmake -G "MinGW Makefiles" ..
+
+make
+
+
 # 1. 结构
 
 ```
