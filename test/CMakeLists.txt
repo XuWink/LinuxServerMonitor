@@ -1,11 +1,14 @@
+# 添加模块 test 的头文件搜索路径
+include_directories(
+  ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
 
+# 添加模块 main 的源文件
+set(SOURCE
+  src/main.cpp
+)
 
-# 创建测试可执行文件
-add_executable(test_main main.cpp)
+# 生成模块 hello 的静态库
+# add_library(hello STATIC ${SOURCE})
 
-# 链接 gtest_main 和待测试的 utils 库
-target_link_libraries(test_main gtest_main utils)
-
-# 加载 GTest 模块并注册测试
-include(GoogleTest)
-gtest_discover_tests(test_main)
+add_executable(test ${SOURCE})

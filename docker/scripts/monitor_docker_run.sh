@@ -24,16 +24,19 @@ if [ -z "${XDG_RUNTIME_DIR}" ]; then
     exit 1
 fi
 
-
-# 停止并删除旧容器
-echo "Stopping and removing old container..."
-docker stop linux_monitor > /dev/null || true
-docker rm -v -f linux_monitor > /dev/null || true
+# 定义容器名称
+CONTAINER_NAME="linux_monitor"
+# 检查容器是否存在
+if docker inspect --format='{{.Id}}' "${CONTAINER_NAME}" > /dev/null 2>&1; then
+    echo "Stopping and removing existing container..."
+    docker stop "${CONTAINER_NAME}" > /dev/null
+    docker rm -v -f "${CONTAINER_NAME}" > /dev/null
+fi
 
 # 启动新容器
 echo "Starting new container..."
 docker run -it -d \
---name linux_monitor \
+--name "${CONTAINER_NAME}" \
 --privileged=true \
 -p 2222:22 \ 
 -e DISPLAY=${display} \
