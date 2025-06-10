@@ -9,17 +9,16 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # 设置可执行文件的保存路径
-set(EXECUTABLE_OUTPUT_PATH &{PROJECT_SOURCE_DIR}/bin)
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 
 # 设置生成的库文件的保存路径
-set(LIBARAY_OUTPUT_PATH &{PROJECT_SOURCE_DIR}/lib)
+set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 # 添加子模块
 add_subdirectory(utils)
-# add_subdirectory(log_manager)
-# add_subdirectory(rpc_manager)
-# add_subdirectory(display)
-# add_subdirectory(test)
+
+
+add_subdirectory(test)
 
 # 启用测试
 enable_testing()
