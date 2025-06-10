@@ -1,28 +1,33 @@
 #!/usr/bin/env bash
 
-# /home/xxx/LinuxServerMonitor/   -v   /work
-# 向上两级
-PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../.." && pwd )"
+# 获取项目根目录
+MONITOR_HOME_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../.." && pwd )"
 
+# 设置默认 DISPLAY
 display=""
-if [ -z ${DISPLAY} ];then
+if [ -z "${DISPLAY}" ];then
     display=":1"
 else
     display="${DISPLAY}"
 fi
 
-# get host info
+# 设置 PROJECT_DIR 变量
+PROJECT_DIR="${MONITOR_HOME_DIR}"
+
+# 获取主机信息
 local_host="$(hostname)"
 user="${USER}"
 uid="$(id -u)"
 group="$(id -g -n)"
 gid="$(id -g)"
 
-# 检查 XDG_RUNTIME_DIR 是否设置
+# 确保 XDG_RUNTIME_DIR 存在
 if [ -z "${XDG_RUNTIME_DIR}" ]; then
-    echo "Error: XDG_RUNTIME_DIR is not set."
-    exit 1
+    XDG_RUNTIME_DIR="/run/user/${uid}"
 fi
+
+# 创建运行时目录（如果不存在）
+mkdir -p "${XDG_RUNTIME_DIR}"
 
 # 定义容器名称
 CONTAINER_NAME="linux_monitor"
@@ -34,22 +39,28 @@ if docker inspect --format='{{.Id}}' "${CONTAINER_NAME}" > /dev/null 2>&1; then
 fi
 
 # 启动新容器
-echo "Starting new container..."
+echo "启动新容器..."
 docker run -it -d \
---name "${CONTAINER_NAME}" \
---privileged=true \
--p 2222:22 \ 
--e DISPLAY=${display} \
--e DOCKER_USER="${user}" \
--e USER="${user}" \
--e DOCKER_USER_ID="${uid}" \
--e DOCKER_GRP="${group}" \
--e DOCKER_GRP_ID="${gid}" \
--e XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR} \
--v /tmp/.X11-unix:/tmp/.X11-unix \
--v ${PROJECT_DIR}:/work \
--v ${XDG_RUNTIME_DIR}:${XDG_RUNTIME_DIR} \
---net host \
-linux:monitor
+    --name ${CONTAINER_NAME} \
+    --privileged=true \
+    -p 2222:22 \
+    -e DISPLAY="${display}" \
+    -e DOCKER_USER="${user}" \
+    -e USER="${user}" \
+    -e DOCKER_USER_ID="${uid}" \
+    -e DOCKER_GRP="${group}" \
+    -e DOCKER_GRP_ID="${gid}" \
+    -e XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR}" \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -v "${PROJECT_DIR}:/work" \
+    -v "${XDG_RUNTIME_DIR}:${XDG_RUNTIME_DIR}" \
+    --net host \
+    linux:monitor
 
-echo "Container started: linux_monitor"
+# 检查容器是否成功启动
+if [ $(docker ps -q -f name=linux_monitor | wc -l) -eq 1 ]; then
+    echo "容器已成功启动: linux_monitor"
+else
+    echo "容器启动失败!"
+    exit 1
+fi
