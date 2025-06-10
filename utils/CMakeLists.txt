@@ -1,12 +1,19 @@
 
-cmake_minimum_required(VERSION 3.10)
-
-# project(utils LANGUAGES CXX)
-
-set(SOURCES
-    read_file.cpp
+include_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-# 自定义链接库
-add_library(utils  ${SOURCES})
-target_include_directories(utils PUBLIC include)
+set(UTILS_SOURCES
+    src/read_file.cpp
+)
+
+add_library(utils  ${UTILS_SOURCES})
+# 指定输出目录
+# set_target_properties(utils PROPERTIES
+#     LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib
+# )
+
+
+target_include_directories(utils PUBLIC 
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
