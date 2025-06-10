@@ -33,7 +33,7 @@ docker rm -v -f linux_monitor > /dev/null || true
 # 启动新容器
 echo "Starting new container..."
 docker run -it -d \
---name linux_monitor \
+--name linux_monitor2 \
 --privileged=true \
 -p 2222:22 \ 
 -e DISPLAY=${display} \
