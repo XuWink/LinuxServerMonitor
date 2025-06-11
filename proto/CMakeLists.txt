@@ -1,50 +1,51 @@
-# 查找并加载 Protobuf 和 gRPC 的 CMake 配置
-find_package(protobuf CONFIG REQUIRED)
-find_package(gRPC CONFIG REQUIRED)
-find_package(c-ares CONFIG)
 
-# Protobuf/Grpc source files
+
+find_package(Protobuf CONFIG REQUIRED)
+find_package(gRPC CONFIG REQUIRED)
+
+# 设置 proto 源文件和生成路径
+set(PROTO_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+set(GENERATED_DIR ${CMAKE_CURRENT_SOURCE_DIR}/generated)
+file(MAKE_DIRECTORY ${GENERATED_DIR})
+
 set(PROTO_FILES
-    monitor.proto
-    cpu_info.proto
+    ${PROTO_DIR}/monitor.proto
+    ${PROTO_DIR}/cpu_info.proto
 )
 
-# 设置生成文件的输出目录
-set(GENERATED_DIR "${PROJECT_SOURCE_DIR}/proto/generated")
+# 获取 gRPC 插件路径
+get_target_property(grpc_cpp_plugin_location gRPC::grpc_cpp_plugin LOCATION)
 
-# 创建库目标
-add_library(monitor_proto ${PROTO_FILES})
+# 编译 proto 文件
+foreach(proto_file ${PROTO_FILES})
+    get_filename_component(proto_name ${proto_file} NAME_WE)
 
-# 链接库
+    set(proto_src "${GENERATED_DIR}/${proto_name}.pb.cc")
+    set(proto_hdr "${GENERATED_DIR}/${proto_name}.pb.h")
+    set(grpc_src "${GENERATED_DIR}/${proto_name}.grpc.pb.cc")
+    set(grpc_hdr "${GENERATED_DIR}/${proto_name}.grpc.pb.h")
+
+    add_custom_command(
+        OUTPUT ${proto_src} ${proto_hdr} ${grpc_src} ${grpc_hdr}
+        COMMAND protobuf::protoc
+        ARGS --proto_path=${PROTO_DIR}
+             --cpp_out=${GENERATED_DIR}
+             --grpc_out=${GENERATED_DIR}
+             --plugin=protoc-gen-grpc=${grpc_cpp_plugin_location}
+             ${proto_file}
+        DEPENDS ${proto_file}
+    )
+
+    list(APPEND GENERATED_SRCS ${proto_src} ${grpc_src})
+    list(APPEND GENERATED_HDRS ${proto_hdr} ${grpc_hdr})
+endforeach()
+
+# 添加生成文件为库
+add_library(monitor_proto ${GENERATED_SRCS} ${GENERATED_HDRS})
+target_include_directories(monitor_proto PUBLIC ${GENERATED_DIR})
 target_link_libraries(monitor_proto
     PUBLIC
         protobuf::libprotobuf
         gRPC::grpc
         gRPC::grpc++
-)
-
-# 设置包含目录
-target_include_directories(monitor_proto PUBLIC
-    ${PROTOBUF_INCLUDE_DIRS}
-    ${GENERATED_DIR}  # 添加生成的目录到包含路径
-)
-
-# 获取 gRPC C++ 插件的位置
-get_target_property(grpc_cpp_plugin_location gRPC::grpc_cpp_plugin LOCATION)
-
-# 生成 C++ 代码
-protobuf_generate_cpp(
-    TARGET monitor_proto
-    LANGUAGE cpp
-    PROTO_FILES ${PROTO_FILES}
-    OUT ${GENERATED_DIR}  # 指定生成文件的输出目录
-)
-
-# 生成 gRPC 代码
-protobuf_generate_grpc(
-    TARGET monitor_proto
-    LANGUAGE grpc
-    PROTO_FILES ${PROTO_FILES}
-    OUT ${GENERATED_DIR}  # 指定生成文件的输出目录
-    PLUGIN "protoc-gen-grpc=${grpc_cpp_plugin_location}"
 )

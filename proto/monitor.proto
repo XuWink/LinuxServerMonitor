@@ -2,8 +2,10 @@
 
 syntax = "proto3";
 
-import "google/protobuf/empty.proto";
 package monitor.proto;
+
+import "google/protobuf/empty.proto";
+import "cpu_info.proto";
 
 message MonitorInfo {
     string name = 1;                    // monitor名字

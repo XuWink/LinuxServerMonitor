@@ -60,10 +60,13 @@ RUN apt-get update && apt-get upgrade -y && \
     rm -rf /var/lib/apt/lists/*
 
 COPY docker/tools/install/protobuf /tmp/install/protobuf
-RUN /tmp/install/protobuf/install_protobuf.sh
+RUN chmod +x /tmp/install/protobuf/install_protobuf.sh && \
+    /tmp/install/protobuf/install_protobuf.sh
     
 COPY docker/tools/install/abseil /tmp/install/abseil
-RUN /tmp/install/abseil/install_abseil.sh
+RUN chmod +x /tmp/install/abseil/install_abseil.sh && \
+    /tmp/install/abseil/install_abseil.sh
     
 COPY docker/tools/install/grpc /tmp/install/grpc
-RUN /tmp/install/grpc/install_grpc.sh
+RUN chmod +x /tmp/install/grpc/install_grpc.sh && \
+    /tmp/install/grpc/install_grpc.sh

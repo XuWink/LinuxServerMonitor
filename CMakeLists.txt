@@ -16,7 +16,7 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 # 添加子模块
 add_subdirectory(utils)
-# add_subdirectory(proto)
+add_subdirectory(proto)
 add_subdirectory(log_manager)
 
 # add_subdirectory(test)
