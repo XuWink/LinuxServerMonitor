@@ -32,8 +32,8 @@ RUN apt-get update  && apt-get upgrade -y  && \
     stress 
 
 
-# grpc 
-RUN apt-get install -y libc-ares-dev  libssl-dev gcc g++ make 
+# grpc googletest
+RUN apt-get install -y libc-ares-dev  libssl-dev gcc g++ make libgtest-dev
 # qt GUI lib   xhost
 RUN apt-get install -y  \
     libx11-xcb1 \
@@ -59,3 +59,6 @@ RUN /tmp/install/abseil/install_abseil.sh
 
 COPY install/grpc /tmp/install/grpc
 RUN /tmp/install/grpc/install_grpc.sh
+
+# COPY install/gtest /tmp/install/gtest
+# RUN /tmp/install/grpc/install_gtest.sh
