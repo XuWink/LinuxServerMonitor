@@ -1,20 +1,17 @@
-# basic image
-FROM  ubuntu:18.04
+# Basic image
+FROM ubuntu:22.04
 
-# no interaction
+# Environment configuration
 ENV DEBIAN_FRONTEND=noninteractive \
     TZ=Asia/Shanghai
 
-  
-#clean
-RUN apt-get clean && \
-    apt-get autoclean
+# Configure apt sources
+COPY docker/tools/apt/sources.list /etc/apt/
 
-COPY apt/sources.list /etc/apt/
-
-# basic ubuntu software package
-RUN apt-get update  && apt-get upgrade -y  && \
-    apt-get install -y \
+# Install all packages in a single RUN layer to minimize image size
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y --no-install-recommends \
+    # Basic tools
     htop \
     apt-utils \
     curl \
@@ -22,43 +19,50 @@ RUN apt-get update  && apt-get upgrade -y  && \
     git \
     openssh-server \
     build-essential \
+    net-tools \
+    vim \
+    stress \
+    software-properties-common \
+    # Qt development
     qtbase5-dev \
     qtchooser \
     qt5-qmake \
     qtbase5-dev-tools \
     libboost-all-dev \
-    net-tools \
-    vim \
-    stress 
-
-
-# grpc googletest
-RUN apt-get install -y libc-ares-dev  libssl-dev gcc g++ make libgtest-dev
-# qt GUI lib   xhost
-RUN apt-get install -y  \
+    # gRPC and dependencies
+    libc-ares-dev \
+    libssl-dev \
+    gcc \
+    g++ \
+    make \
+    libgtest-dev \
+    libbenchmark-dev \
+    libprotobuf-dev \
+    protobuf-compiler \
+    libgrpc++-dev \
+    grpc-dev \
+    libgrpc-dev \
+    libgrpc++1 \
+    # Qt GUI dependencies
     libx11-xcb1 \
     libfreetype6 \
     libdbus-1-3 \
     libfontconfig1 \
-    libxkbcommon0   \
-    libxkbcommon-x11-0
-
-# python for cuteci
-RUN apt-get install -y python-dev \
+    libxkbcommon0 \
+    libxkbcommon-x11-0 \
+    # Python development
     python3-dev \
-    python-pip \
-    python-all-dev 
+    python3-pip \
+    python3-all-dev && \
+    # Clean up
+    apt-get autoremove -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-
-# COPY from  host to  container  && RUN
-COPY install/protobuf /tmp/install/protobuf
-RUN /tmp/install/protobuf/install_protobuf.sh
-
-COPY install/abseil /tmp/install/abseil
-RUN /tmp/install/abseil/install_abseil.sh
-
-COPY install/grpc /tmp/install/grpc
-RUN /tmp/install/grpc/install_grpc.sh
-
-# COPY install/gtest /tmp/install/gtest
-# RUN /tmp/install/grpc/install_gtest.sh
+# Install custom versions if needed (combined into single layer)
+# COPY docker/tools/install /tmp/install
+# RUN cd /tmp/install/protobuf && ./install_protobuf.sh && \
+#     cd /tmp/install/abseil && ./install_abseil.sh && \
+#     cd /tmp/install/grpc && ./install_grpc.sh && \
+#     # Clean up installation files
+#     rm -rf /tmp/install
