@@ -19,7 +19,7 @@ add_subdirectory(utils)
 add_subdirectory(proto)
 add_subdirectory(log_manager)
 
-# add_subdirectory(test)
+add_subdirectory(test)
 
 # 启用测试
 enable_testing()
