@@ -37,12 +37,12 @@ RUN apt-get update && apt-get upgrade -y && \
     make \
     libgtest-dev \
     libbenchmark-dev \
-    libprotobuf-dev \
-    protobuf-compiler \
-    libgrpc++-dev \
-    grpc-dev \
-    libgrpc-dev \
-    libgrpc++1 \
+    # libprotobuf-dev \
+    # protobuf-compiler \
+    # libgrpc++-dev \
+    # grpc-dev \
+    # libgrpc-dev \
+    # libgrpc++1 \
     # Qt GUI dependencies
     libx11-xcb1 \
     libfreetype6 \
@@ -59,10 +59,11 @@ RUN apt-get update && apt-get upgrade -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Install custom versions if needed (combined into single layer)
-# COPY docker/tools/install /tmp/install
-# RUN cd /tmp/install/protobuf && ./install_protobuf.sh && \
-#     cd /tmp/install/abseil && ./install_abseil.sh && \
-#     cd /tmp/install/grpc && ./install_grpc.sh && \
-#     # Clean up installation files
-#     rm -rf /tmp/install
+COPY docker/tools/install/protobuf /tmp/install/protobuf
+RUN /tmp/install/protobuf/install_protobuf.sh
+    
+COPY docker/tools/install/abseil /tmp/install/abseil
+RUN /tmp/install/abseil/install_abseil.sh
+    
+COPY docker/tools/install/grpc /tmp/install/grpc
+RUN /tmp/install/grpc/install_grpc.sh

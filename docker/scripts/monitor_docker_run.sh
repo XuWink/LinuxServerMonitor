@@ -55,11 +55,11 @@ docker run -it -d \
     -v "${PROJECT_DIR}:/work" \
     -v "${XDG_RUNTIME_DIR}:${XDG_RUNTIME_DIR}" \
     --net host \
-    linux:monitor
+    linux1:monitor1
 
 # 检查容器是否成功启动
-if [ $(docker ps -q -f name=linux_monitor | wc -l) -eq 1 ]; then
-    echo "容器已成功启动: linux_monitor"
+if [ $(docker ps -q -f name=${CONTAINER_NAME} | wc -l) -eq 1 ]; then
+    echo "容器已成功启动: ${CONTAINER_NAME}"
 else
     echo "容器启动失败!"
     exit 1

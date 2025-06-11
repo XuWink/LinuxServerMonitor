@@ -2,7 +2,6 @@
 
 服务器监控系统
 
-
 编译：
 
 mkdir build && cd build
@@ -10,7 +9,6 @@ mkdir build && cd build
 cmake -G "MinGW Makefiles" ..
 
 make
-
 
 # 1. 结构
 
@@ -67,4 +65,66 @@ make
 
 # 2. 各个模块介绍
 
+utils模块：[utils](./utils/README.md ":include :type=markdown")
+
 proto模块：[proto](./proto/README.md ":include :type=markdown")
+
+# 3. docker构建环境
+
+```shell
+cd docker/scripts
+# 创建镜像
+./docker_build.sh
+# 创建容器
+./monitor_docker_run.sh
+# 进入容器
+./monitor_docker_into.sh
+# 删除容器
+./docker_rm_container.sh
+# 删除镜像
+./docker_rm_image.sh
+```
+
+# 4. 编译项目
+
+```shell
+./monitor_docker_into.sh
+cd work/build
+cmake ..
+make -j8
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
