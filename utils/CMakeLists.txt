@@ -4,7 +4,7 @@ include_directories(
 )
 
 set(UTILS_SOURCES
-    src/read_file.cpp
+    src/ReadFile.cpp
 )
 
 add_library(utils  ${UTILS_SOURCES})

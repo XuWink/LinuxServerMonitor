@@ -3,7 +3,7 @@ find_package(GTest REQUIRED)
 
 # 添加可执行程序
 add_executable(mytest
-  src/main.cpp
+  src/AllTest.cpp
 )
 
 # 添加头文件目录

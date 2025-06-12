@@ -1,6 +1,6 @@
 // 阻塞队列
-#ifndef __BLOCK_QUEUE__
-#define __BLOCK_QUEUE__
+#ifndef BLOCK_QUEUE_H_
+#define BLOCK_QUEUE_H_
 
 #include <mutex>
 #include <condition_variable>

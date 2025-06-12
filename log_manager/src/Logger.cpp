@@ -1,4 +1,4 @@
-#include "logger_manager.h"
+#include "Logger.hpp"
 
 // 初始化静态成员变量
 std::unique_ptr<Logger> Logger::instance_ = nullptr;

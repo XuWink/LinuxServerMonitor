@@ -1,5 +1,5 @@
-#ifndef __LOGGER_MANAGER__
-#define __LOGGER_MANAGER__
+#ifndef LOGGER_MANAGER_H_
+#define LOGGER_MANAGER_H_
 
 #include <string>
 #include <memory>
@@ -9,6 +9,9 @@
 #include <iomanip>
 #include <sstream>
 #include <fstream>
+// #include "block_queue.hpp"
+
+// TODO 添加阻塞队列 
  
 class Logger {
 public:

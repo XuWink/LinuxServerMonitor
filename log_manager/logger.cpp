@@ -1,4 +1,4 @@
-#include "logger_manager.h"
+#include "Logger.hpp"
 
 int main() {
     Logger& logger = Logger::getInstance();
