@@ -15,12 +15,12 @@ class RpcServer : public monitor::proto::GrpcManager::Service {
   RpcServer();
   virtual ~RpcServer();
 
-  ::grpc::Status SetMonitorInfo(::grpc::ClientContext* context,
+  ::grpc::Status SetMonitorInfo(::grpc::ServerContext* context,
                                 const ::monitor::proto::MonitorInfo& request,
                                 ::google::protobuf::Empty* response) override;
-  ::grpc::Status GetMonitorInfo(::grpc::ServerContext* context,
-                                const ::google::protobuf::Empty* request,
-                                ::monitor::proto::MonitorInfo* response);
+  ::grpc::Status GetMonitorInfo(
+      ::grpc::ServerContext* context, const ::google::protobuf::Empty* request,
+      ::monitor::proto::MonitorInfo* response) override;
 
  private:
   monitor::proto::MonitorInfo monitor_infos_;
