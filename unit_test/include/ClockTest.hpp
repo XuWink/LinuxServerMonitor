@@ -1,5 +1,7 @@
-#include <thread>
 #include <gtest/gtest.h>
+
+#include <thread>
+
 #include "Clock.hpp"
 
 TEST(ClockTest, SteadyTimeSecond) {

@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+
 #include "ReadFile.hpp"
 
 bool TestReadFile(const std::string& file_path,
