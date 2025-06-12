@@ -16,9 +16,9 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 # 添加子模块
 add_subdirectory(utils)  # 工具模块
-# add_subdirectory(proto)  # 通信协议模块
+add_subdirectory(proto)  # 通信协议模块
 add_subdirectory(log_manager)  # 日志管理模块
-# add_subdirectory(unit_test)  # 单元测试模块
+add_subdirectory(unit_test)  # 单元测试模块
 
 # 启用测试
 enable_testing()

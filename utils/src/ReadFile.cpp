@@ -1,4 +1,4 @@
-#include "ReadFile.h"
+#include "ReadFile.hpp"
 
 namespace monitor {
 // 构造函数
@@ -7,7 +7,7 @@ ReadFile::ReadFile(const std::string& file_path)
 
 // 析构函数
 ReadFile::~ReadFile() {
-  std::cout << "调用ReadFile的析构函数" << std::endl;
+  // std::cout << "调用ReadFile的析构函数" << std::endl;
   if (ifs_.is_open()) {
     ifs_.close();
   }
