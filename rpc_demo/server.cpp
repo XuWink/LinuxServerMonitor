@@ -1,7 +1,9 @@
+#include <grpcpp/grpcpp.h>
+
 #include <iostream>
 #include <memory>
 #include <string>
-#include <grpcpp/grpcpp.h>
+
 #include "hello.grpc.pb.h"
 
 using grpc::Server;
@@ -9,11 +11,12 @@ using grpc::ServerBuilder;
 using grpc::ServerContext;
 using grpc::Status;
 using hello::Greeter;
-using hello::HelloRequest;
 using hello::HelloReply;
+using hello::HelloRequest;
 
 class GreeterImpl final : public Greeter::Service {
-  Status SayHello(ServerContext* context, const HelloRequest* request, HelloReply* reply) override {
+  Status SayHello(ServerContext* context, const HelloRequest* request,
+                  HelloReply* reply) override {
     std::string prefix("Hello ");
     reply->set_message(prefix + request->name());
     return Status::OK;

@@ -10,20 +10,24 @@
 
 namespace monitor {
 
-class RpcServer : public monitor::proto::GrpcManager::Service {
+using google::protobuf::Empty;
+using grpc::ServerContext;
+using grpc::Status;
+using monitor::proto::MonitorInfo;
+using monitor::proto::GrpcManager::Service;
+
+class RpcServer : public Service {
  public:
   RpcServer();
   virtual ~RpcServer();
 
-  ::grpc::Status SetMonitorInfo(::grpc::ServerContext* context,
-                                const ::monitor::proto::MonitorInfo& request,
-                                ::google::protobuf::Empty* response) override;
-  ::grpc::Status GetMonitorInfo(
-      ::grpc::ServerContext* context, const ::google::protobuf::Empty* request,
-      ::monitor::proto::MonitorInfo* response) override;
+  Status SetMonitorInfo(ServerContext* context, const MonitorInfo& request,
+                        Empty* response) override;
+  Status GetMonitorInfo(ServerContext* context, const Empty* request,
+                        MonitorInfo* response) override;
 
  private:
-  monitor::proto::MonitorInfo monitor_infos_;
+  MonitorInfo monitor_infos_;
 };
 }  // namespace monitor
 
