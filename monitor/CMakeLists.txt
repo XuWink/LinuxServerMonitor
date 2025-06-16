@@ -5,7 +5,7 @@ set(MONITOR_SOURCE
 )
 
 add_executable(monitor ${MONITOR_SOURCE})
-target_include_directories(monitor ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(monitor PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(monitor
     PRIVATE
         client

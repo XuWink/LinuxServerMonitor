@@ -5,6 +5,9 @@ set(CLIENT_SOURCE
 )
 
 add_library(client ${CLIENT_SOURCE})
+target_include_directories(client PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
 
 target_link_libraries(client
     PUBLIC  
