@@ -1,1 +1,13 @@
-cmake_minimum_required(VERSION 3.10)
+
+set(CLIENT_SOURCE
+    ${CMAKE_CURRENT_SOURCE_DIR}/client.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/RpcClient.cpp
+)
+
+add_library(client ${CLIENT_SOURCE})
+
+target_link_libraries(client
+    PUBLIC  
+        monitor_proto
+        logger
+)

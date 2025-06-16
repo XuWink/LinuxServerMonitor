@@ -21,6 +21,7 @@ class RpcServer : public Service {
   RpcServer();
   virtual ~RpcServer();
 
+  // 实现Service中的接口
   Status SetMonitorInfo(ServerContext* context, const MonitorInfo& request,
                         Empty* response) override;
   Status GetMonitorInfo(ServerContext* context, const Empty* request,
