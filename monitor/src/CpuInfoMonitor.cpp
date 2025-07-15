@@ -2,10 +2,6 @@
 
 namespace monitor {
 
-CpuInfoMonitor::CpuInfoMonitor() {}
-
-CpuInfoMonitor::~CpuInfoMonitor() {}
-
 /// @brief 更新数据到服务器
 /// @param monitor_info
 void CpuInfoMonitor::UpdateOnce(monitor::proto::MonitorInfo* monitor_info) {
@@ -106,8 +102,5 @@ CpuInfoMonitor::ParseCpuSection(const std::string& section) {
 
   return cpu_info;
 }
-
-/// @brief 停止
-CpuInfoMonitor::Stop() { std::cout << "停止监测CpuInfo......" << std::endl; }
 
 }  // namespace monitor

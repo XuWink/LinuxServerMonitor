@@ -6,7 +6,7 @@
 
 #include "Logger.hpp"
 #include "MonitorBase.hpp"
-#include "ReadFile.hpp"
+// #include "ReadFile.hpp"
 #include "StringUtil.hpp"
 
 namespace monitor {
@@ -22,11 +22,10 @@ class CpuInfoMonitor : public MonitorBase {
   };
 
  public:
-  CpuInfoMonitor();
-  ~CpuInfoMonitor();
+  CpuInfoMonitor() = default
+  ~CpuInfoMonitor() override = default;
 
   void UpdateOnce(monitor::proto::MonitorInfo* monitor_info) override;
-  void Stop() override;
 
  private:
   /// @brief 从系统读取 CPU 信息

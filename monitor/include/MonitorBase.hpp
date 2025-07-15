@@ -20,7 +20,6 @@ class MonitorBase {
   /// @param monitor_info 待更新的监控信息对象
   virtual void UpdateOnce(monitor::proto::MonitorInfo* monitor_info) = 0;
 
-  virtual void Stop() = 0;
 };
 
 }  // namespace monitor
