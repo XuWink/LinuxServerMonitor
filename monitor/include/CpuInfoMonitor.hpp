@@ -22,14 +22,14 @@ class CpuInfoMonitor : public MonitorBase {
   };
 
  public:
-  CpuInfoMonitor() = default
+  CpuInfoMonitor() = default;
   ~CpuInfoMonitor() override = default;
 
   void UpdateOnce(monitor::proto::MonitorInfo* monitor_info) override;
 
  private:
   /// @brief 从系统读取 CPU 信息
-  void ParseCpuSection(const std::string& section);
+  CpuInfo ParseCpuSection(const std::string& section);
 };
 
 }  // namespace monitor

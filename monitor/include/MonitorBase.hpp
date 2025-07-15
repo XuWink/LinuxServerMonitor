@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "generated/monitor.grpc.pb.h"
+#include "monitor.grpc.pb.h"
 
 /// @brief 监控基类，定义抽象接口
 namespace monitor {
@@ -19,7 +19,6 @@ class MonitorBase {
   /// @brief 更新监控信息（单次）
   /// @param monitor_info 待更新的监控信息对象
   virtual void UpdateOnce(monitor::proto::MonitorInfo* monitor_info) = 0;
-
 };
 
 }  // namespace monitor

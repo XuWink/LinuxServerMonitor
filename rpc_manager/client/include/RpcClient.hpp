@@ -1,4 +1,6 @@
 
+#include <grpcpp/grpcpp.h>
+
 #include "monitor.grpc.pb.h"
 #include "monitor.pb.h"
 
@@ -20,4 +22,3 @@ class RpcClient {
 };
 
 }  // namespace monitor
-

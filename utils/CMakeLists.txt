@@ -5,6 +5,7 @@ include_directories(
 
 set(UTILS_SOURCES
     src/ReadFile.cpp
+    src/StringUtil.cpp
 )
 
 add_library(utils  ${UTILS_SOURCES})

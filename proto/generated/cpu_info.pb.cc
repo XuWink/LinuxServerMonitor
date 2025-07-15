@@ -63,7 +63,7 @@ const char descriptor_table_protodef_cpu_5finfo_2eproto[] PROTOBUF_SECTION_VARIA
   "\n\016cpu_info.proto\022\rmonitor.proto\"b\n\007CpuIn"
   "fo\022\014\n\004name\030\001 \001(\t\022\022\n\nmodel_name\030\002 \001(\t\022\013\n\003"
   "mhz\030\003 \001(\002\022\025\n\rcache_size_kb\030\004 \001(\002\022\021\n\tcore"
-  "_nums\030\005 \001(\002b\006proto3"
+  "_nums\030\005 \001(\005b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_cpu_5finfo_2eproto_deps[1] = {
 };
@@ -204,11 +204,11 @@ const char* CpuInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
           ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
-      // float core_nums = 5;
+      // int32 core_nums = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 45)) {
-          core_nums_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
+          core_nums_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
         } else goto handle_unusual;
         continue;
       default: {
@@ -271,10 +271,10 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(4, this->_internal_cache_size_kb(), target);
   }
 
-  // float core_nums = 5;
-  if (!(this->core_nums() <= 0 && this->core_nums() >= 0)) {
+  // int32 core_nums = 5;
+  if (this->core_nums() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(5, this->_internal_core_nums(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(5, this->_internal_core_nums(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -317,9 +317,11 @@ size_t CpuInfo::ByteSizeLong() const {
     total_size += 1 + 4;
   }
 
-  // float core_nums = 5;
-  if (!(this->core_nums() <= 0 && this->core_nums() >= 0)) {
-    total_size += 1 + 4;
+  // int32 core_nums = 5;
+  if (this->core_nums() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_core_nums());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -365,7 +367,7 @@ void CpuInfo::MergeFrom(const CpuInfo& from) {
   if (!(from.cache_size_kb() <= 0 && from.cache_size_kb() >= 0)) {
     _internal_set_cache_size_kb(from._internal_cache_size_kb());
   }
-  if (!(from.core_nums() <= 0 && from.core_nums() >= 0)) {
+  if (from.core_nums() != 0) {
     _internal_set_core_nums(from._internal_core_nums());
   }
 }

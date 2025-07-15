@@ -9,4 +9,5 @@ target_include_directories(monitor PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(monitor
     PRIVATE
         client
+        utils
 )

@@ -236,13 +236,13 @@ class CpuInfo PROTOBUF_FINAL :
   void _internal_set_cache_size_kb(float value);
   public:
 
-  // float core_nums = 5;
+  // int32 core_nums = 5;
   void clear_core_nums();
-  float core_nums() const;
-  void set_core_nums(float value);
+  ::PROTOBUF_NAMESPACE_ID::int32 core_nums() const;
+  void set_core_nums(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  float _internal_core_nums() const;
-  void _internal_set_core_nums(float value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_core_nums() const;
+  void _internal_set_core_nums(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
   // @@protoc_insertion_point(class_scope:monitor.proto.CpuInfo)
@@ -256,7 +256,7 @@ class CpuInfo PROTOBUF_FINAL :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr model_name_;
   float mhz_;
   float cache_size_kb_;
-  float core_nums_;
+  ::PROTOBUF_NAMESPACE_ID::int32 core_nums_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_cpu_5finfo_2eproto;
 };
@@ -433,22 +433,22 @@ inline void CpuInfo::set_cache_size_kb(float value) {
   // @@protoc_insertion_point(field_set:monitor.proto.CpuInfo.cache_size_kb)
 }
 
-// float core_nums = 5;
+// int32 core_nums = 5;
 inline void CpuInfo::clear_core_nums() {
   core_nums_ = 0;
 }
-inline float CpuInfo::_internal_core_nums() const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 CpuInfo::_internal_core_nums() const {
   return core_nums_;
 }
-inline float CpuInfo::core_nums() const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 CpuInfo::core_nums() const {
   // @@protoc_insertion_point(field_get:monitor.proto.CpuInfo.core_nums)
   return _internal_core_nums();
 }
-inline void CpuInfo::_internal_set_core_nums(float value) {
+inline void CpuInfo::_internal_set_core_nums(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
   core_nums_ = value;
 }
-inline void CpuInfo::set_core_nums(float value) {
+inline void CpuInfo::set_core_nums(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_core_nums(value);
   // @@protoc_insertion_point(field_set:monitor.proto.CpuInfo.core_nums)
 }

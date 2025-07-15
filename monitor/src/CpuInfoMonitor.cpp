@@ -13,8 +13,8 @@ void CpuInfoMonitor::UpdateOnce(monitor::proto::MonitorInfo* monitor_info) {
 
   // 一次性读取整个文件内容到字符串
   std::string file_content(
-      std::istreambuf_iterator<char>(cpuinfo_file),  // 开始迭代器
-      std::istreambuf_iterator<char>()               // 结束迭代器
+      (std::istreambuf_iterator<char>(cpuinfo_file)),  // 开始迭代器
+      std::istreambuf_iterator<char>()                 // 结束迭代器
   );
 
   // 2. 按空行分割段落（每个段落对应一个 CPU）
@@ -49,13 +49,14 @@ void CpuInfoMonitor::UpdateOnce(monitor::proto::MonitorInfo* monitor_info) {
     cpu_info_msg->set_model_name(cpu_info.model_name);
     cpu_info_msg->set_mhz(cpu_info.mhz);
     cpu_info_msg->set_cache_size_kb(cpu_info.cache_size_kb);
-    cpu_info_msg->set_cores_num(cpu_info.cores_num);
+    cpu_info_msg->set_core_nums(cpu_info.core_nums);
   }
 }
 
 /// @brief 读取 Linux 的 /proc/cpuinfo，参考 assets/cpuinfo 文件
 /// @param monitor_info
-CpuInfoMonitor::ParseCpuSection(const std::string& section) {
+monitor::CpuInfoMonitor::CpuInfo CpuInfoMonitor::ParseCpuSection(
+    const std::string& section) {
   CpuInfo cpu_info;
   std::istringstream section_stream(section);
   std::string line;
@@ -65,8 +66,10 @@ CpuInfoMonitor::ParseCpuSection(const std::string& section) {
     auto tokens = util::StringUtil::split(line, ':');
     if (tokens.size() < 2) continue;
 
-    std::string key = util::StringUtil::TrimString(tokens[0]);
-    std::string value = util::StringUtil::TrimString(tokens[1]);
+    std::string key = tokens[0];
+    util::StringUtil::TrimString(key);
+    std::string value = tokens[1];
+    util::StringUtil::TrimString(value);
 
     // 根据字段名填充结构体
     if (key == "processor") {
@@ -93,9 +96,9 @@ CpuInfoMonitor::ParseCpuSection(const std::string& section) {
       }
     } else if (key == "cpu cores") {
       try {
-        cpu_info.cores_num = std::stoi(value);
+        cpu_info.core_nums = std::stoi(value);
       } catch (...) {
-        cpu_info.cores_num = 0;
+        cpu_info.core_nums = 0;
       }
     }
   }

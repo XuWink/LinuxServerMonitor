@@ -33,9 +33,8 @@ void RunMonitor() {
       }
 
       // 同步到服务器
-      if (!rpc_client.SetMonitorInfo(monitor_info)) {
-        std::cerr << "Failed to send monitor data" << std::endl;
-      }
+      rpc_client.SetMonitorInfo(monitor_info);
+
     } catch (const std::exception& e) {
       std::cerr << "Error in monitoring loop: " << e.what() << std::endl;
     }
@@ -43,7 +42,7 @@ void RunMonitor() {
     if (g_running) {  // 避免最后一次不必要的等待
       std::this_thread::sleep_for(std::chrono::seconds(3));
     }
-    }
+  }
 }
 
 int main() {
