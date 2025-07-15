@@ -1,0 +1,2 @@
+export ANTHROPIC_AUTH_TOKEN=sk-foheKFvyvqUSnPMyQnjWocuzuzowKmI7KaWUuvtApFbdvEC8
+export ANTHROPIC_BASE_URL=https://anyrouter.top
