@@ -1,6 +1,8 @@
 #ifndef MONITOR_BASE_
 #define MONITOR_BASE_
 
+#include <string>
+
 #include "monitor.grpc.pb.h"
 #include "monitor.pb.h"
 
