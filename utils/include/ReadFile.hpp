@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-namespace monitor {
+namespace util {
 class ReadFile {
  public:
   explicit ReadFile(const std::string& file_path);
@@ -23,6 +23,6 @@ class ReadFile {
   std::ifstream ifs_;
 };
 
-}  // namespace monitor
+}  // namespace util
 
 #endif

@@ -4,7 +4,7 @@
 
 bool TestReadFile(const std::string& file_path,
                   std::string* error_msg = nullptr) {
-  monitor::ReadFile reader(file_path);
+  util::ReadFile reader(file_path);
   std::vector<std::string> lines;
   if (!reader.ReadLine(lines)) {
     if (error_msg) {

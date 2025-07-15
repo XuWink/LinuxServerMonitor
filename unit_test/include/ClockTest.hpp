@@ -15,7 +15,7 @@ TEST(ClockTest, SteadyTimeSecond) {
   auto end = std::chrono::steady_clock::now();
 
   // 计算时间差（单位：秒）
-  double diff_seconds = monitor::Clock::SteadyTimeSecond(start, end);
+  double diff_seconds = util::Clock::SteadyTimeSecond(start, end);
 
   // 验证时间差是否在合理范围内（允许±10毫秒误差）
   EXPECT_NEAR(diff_seconds, 1, 0.01);  // 0.1秒 ± 0.01秒

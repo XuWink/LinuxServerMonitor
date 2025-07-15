@@ -1,6 +1,6 @@
 #include "ReadFile.hpp"
 
-namespace monitor {
+namespace util {
 // 构造函数
 ReadFile::ReadFile(const std::string& file_path)
     : ifs_(file_path, std::ios::in) {}
@@ -30,4 +30,4 @@ bool ReadFile::ReadLine(std::vector<std::string>& args) {
   return true;
 }
 
-}  // namespace monitor
+}  // namespace util

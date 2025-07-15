@@ -4,7 +4,7 @@
 #include <chrono>
 
 
-namespace monitor {
+namespace util {
 
 class Clock {
  public:
@@ -18,6 +18,6 @@ class Clock {
   }
 };
 
-}  // namespace monitor
+}  // namespace util
 
 #endif

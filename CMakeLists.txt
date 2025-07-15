@@ -21,10 +21,10 @@ else()
 endif()
 
 # 设置可执行文件的保存路径
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/build/bin)
 
 # 设置生成的库文件的保存路径
-set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/build/lib)
 
 # 添加子模块
 add_subdirectory(utils)  # 工具模块
