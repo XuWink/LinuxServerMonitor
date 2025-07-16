@@ -1,6 +1,6 @@
-
 #include <grpcpp/grpcpp.h>
 
+#include "StringUtil.hpp"
 #include "monitor.grpc.pb.h"
 #include "monitor.pb.h"
 
@@ -14,8 +14,10 @@ class RpcClient {
   RpcClient();
   ~RpcClient();
 
-  void SetMonitorInfo(const MonitorInfo& monito_info);
-  void GetMonitorInfo(MonitorInfo* monito_info);
+  bool SetMonitorInfo(const MonitorInfo& monitor_info);
+  bool GetMonitorInfo(MonitorInfo* monitor_info);
+
+  bool GetAllMonitorInfo(AllMonitorInfo* all_monitor_info);
 
  private:
   std::unique_ptr<GrpcManager::Stub> stub_ptr_;

@@ -7,6 +7,8 @@
 #include <string>
 #include <vector>
 
+#include "Logger.hpp"
+
 namespace util {
 
 class StringUtil {
@@ -32,6 +34,11 @@ class StringUtil {
   /// @param delim
   /// @return
   static std::vector<std::string> split(const std::string& str, char delim);
+
+  /// @brief 读取filepath
+  /// @param filepath rpc_manager\client\SERVER_IP.txt
+  /// @return 返回ip:port列表
+  static std::vector<std::string> getIp(const char* filepath);
 };
 
 }  // namespace util

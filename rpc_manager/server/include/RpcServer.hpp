@@ -16,12 +16,6 @@ using grpc::Status;
 using monitor::proto::MonitorInfo;
 
 class RpcServer : public monitor::proto::GrpcManager::Service {
-  // using Empty = google::protobuf::Empty;
-  // using ServerContext = grpc::ServerContext;
-  // using Status = grpc::Status;
-  // using MonitorInfo = ::proto::MonitorInfo;
-  // using Service = ::proto::GrpcManager::Service;
-
  public:
   RpcServer();
   virtual ~RpcServer();
@@ -34,8 +28,18 @@ class RpcServer : public monitor::proto::GrpcManager::Service {
                               const google::protobuf::Empty* request,
                               monitor::proto::MonitorInfo* response) override;
 
+  // 新加
+  grpc::Status GetAllMonitorInfo(
+      grpc::ServerContext* context, const google::protobuf::Empty* request,
+      monitor::proto::AllMonitorInfo* response) override;
+
  private:
   MonitorInfo monitor_infos_;
+
+  // 客户端IP -> CPU信息
+  std::unordered_map<std::string, monitor::proto::MonitorInfo> clients_;
+  mutable std::mutex clients_mutex_;  // 保护clients_的互斥锁
+  std::string getClientIP(grpc::ServerContext* context) const;
 };
 }  // namespace monitor
 
