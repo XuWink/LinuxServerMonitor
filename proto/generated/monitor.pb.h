@@ -48,7 +48,7 @@ struct TableStruct_monitor_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[1]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[2]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -57,12 +57,16 @@ struct TableStruct_monitor_2eproto {
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_monitor_2eproto;
 namespace monitor {
 namespace proto {
+class AllMonitorInfo;
+class AllMonitorInfoDefaultTypeInternal;
+extern AllMonitorInfoDefaultTypeInternal _AllMonitorInfo_default_instance_;
 class MonitorInfo;
 class MonitorInfoDefaultTypeInternal;
 extern MonitorInfoDefaultTypeInternal _MonitorInfo_default_instance_;
 }  // namespace proto
 }  // namespace monitor
 PROTOBUF_NAMESPACE_OPEN
+template<> ::monitor::proto::AllMonitorInfo* Arena::CreateMaybeMessage<::monitor::proto::AllMonitorInfo>(Arena*);
 template<> ::monitor::proto::MonitorInfo* Arena::CreateMaybeMessage<::monitor::proto::MonitorInfo>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace monitor {
@@ -231,6 +235,151 @@ class MonitorInfo PROTOBUF_FINAL :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_monitor_2eproto;
 };
+// -------------------------------------------------------------------
+
+class AllMonitorInfo PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:monitor.proto.AllMonitorInfo) */ {
+ public:
+  inline AllMonitorInfo() : AllMonitorInfo(nullptr) {}
+  virtual ~AllMonitorInfo();
+
+  AllMonitorInfo(const AllMonitorInfo& from);
+  AllMonitorInfo(AllMonitorInfo&& from) noexcept
+    : AllMonitorInfo() {
+    *this = ::std::move(from);
+  }
+
+  inline AllMonitorInfo& operator=(const AllMonitorInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline AllMonitorInfo& operator=(AllMonitorInfo&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const AllMonitorInfo& default_instance();
+
+  static inline const AllMonitorInfo* internal_default_instance() {
+    return reinterpret_cast<const AllMonitorInfo*>(
+               &_AllMonitorInfo_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(AllMonitorInfo& a, AllMonitorInfo& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(AllMonitorInfo* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(AllMonitorInfo* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline AllMonitorInfo* New() const final {
+    return CreateMaybeMessage<AllMonitorInfo>(nullptr);
+  }
+
+  AllMonitorInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<AllMonitorInfo>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const AllMonitorInfo& from);
+  void MergeFrom(const AllMonitorInfo& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(AllMonitorInfo* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "monitor.proto.AllMonitorInfo";
+  }
+  protected:
+  explicit AllMonitorInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_monitor_2eproto);
+    return ::descriptor_table_monitor_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMonitorInfosFieldNumber = 1,
+  };
+  // repeated .monitor.proto.MonitorInfo monitor_infos = 1;
+  int monitor_infos_size() const;
+  private:
+  int _internal_monitor_infos_size() const;
+  public:
+  void clear_monitor_infos();
+  ::monitor::proto::MonitorInfo* mutable_monitor_infos(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::monitor::proto::MonitorInfo >*
+      mutable_monitor_infos();
+  private:
+  const ::monitor::proto::MonitorInfo& _internal_monitor_infos(int index) const;
+  ::monitor::proto::MonitorInfo* _internal_add_monitor_infos();
+  public:
+  const ::monitor::proto::MonitorInfo& monitor_infos(int index) const;
+  ::monitor::proto::MonitorInfo* add_monitor_infos();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::monitor::proto::MonitorInfo >&
+      monitor_infos() const;
+
+  // @@protoc_insertion_point(class_scope:monitor.proto.AllMonitorInfo)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::monitor::proto::MonitorInfo > monitor_infos_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_monitor_2eproto;
+};
 // ===================================================================
 
 
@@ -339,9 +488,54 @@ MonitorInfo::cpu_info() const {
   return cpu_info_;
 }
 
+// -------------------------------------------------------------------
+
+// AllMonitorInfo
+
+// repeated .monitor.proto.MonitorInfo monitor_infos = 1;
+inline int AllMonitorInfo::_internal_monitor_infos_size() const {
+  return monitor_infos_.size();
+}
+inline int AllMonitorInfo::monitor_infos_size() const {
+  return _internal_monitor_infos_size();
+}
+inline void AllMonitorInfo::clear_monitor_infos() {
+  monitor_infos_.Clear();
+}
+inline ::monitor::proto::MonitorInfo* AllMonitorInfo::mutable_monitor_infos(int index) {
+  // @@protoc_insertion_point(field_mutable:monitor.proto.AllMonitorInfo.monitor_infos)
+  return monitor_infos_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::monitor::proto::MonitorInfo >*
+AllMonitorInfo::mutable_monitor_infos() {
+  // @@protoc_insertion_point(field_mutable_list:monitor.proto.AllMonitorInfo.monitor_infos)
+  return &monitor_infos_;
+}
+inline const ::monitor::proto::MonitorInfo& AllMonitorInfo::_internal_monitor_infos(int index) const {
+  return monitor_infos_.Get(index);
+}
+inline const ::monitor::proto::MonitorInfo& AllMonitorInfo::monitor_infos(int index) const {
+  // @@protoc_insertion_point(field_get:monitor.proto.AllMonitorInfo.monitor_infos)
+  return _internal_monitor_infos(index);
+}
+inline ::monitor::proto::MonitorInfo* AllMonitorInfo::_internal_add_monitor_infos() {
+  return monitor_infos_.Add();
+}
+inline ::monitor::proto::MonitorInfo* AllMonitorInfo::add_monitor_infos() {
+  // @@protoc_insertion_point(field_add:monitor.proto.AllMonitorInfo.monitor_infos)
+  return _internal_add_monitor_infos();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::monitor::proto::MonitorInfo >&
+AllMonitorInfo::monitor_infos() const {
+  // @@protoc_insertion_point(field_list:monitor.proto.AllMonitorInfo.monitor_infos)
+  return monitor_infos_;
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 

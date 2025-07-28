@@ -66,7 +66,11 @@ Status RpcServer::GetAllMonitorInfo(ServerContext* context,
   for (const auto& pair : clients_) {
     auto monitor_info = response->add_monitor_infos();
     monitor_info->set_name(pair.first);
-    *monitor_info->mutable_cpu_info() = pair.second;  // 复制CPU信息
+
+    // 遍历 pair.second 中的所有 CpuInfo，复制到目标 repeated 字段
+    for (const auto& cpu : pair.second.cpu_info()) {
+      monitor_info->mutable_cpu_info()->Add()->CopyFrom(cpu);
+    }
   }
 
   return Status::OK;

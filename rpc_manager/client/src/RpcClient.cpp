@@ -8,6 +8,12 @@ RpcClient::RpcClient() {
   stub_ptr_ = monitor::proto::GrpcManager::NewStub(channel);
 }
 
+RpcClient::RpcClient(const std::string& server_address) {
+  auto channel =
+      grpc::CreateChannel(server_address, grpc::InsecureChannelCredentials());
+  stub_ptr_ = monitor::proto::GrpcManager::NewStub(channel);
+}
+
 RpcClient::~RpcClient() {}
 
 // 服务端调用gRPC方法把数据传给服务器，const & 传入参数
@@ -68,8 +74,8 @@ bool RpcClient::GetMonitorInfo(monitor::proto::MonitorInfo* monitor_info) {
   return true;
 }
 
-bool RpcClient::GetAllMonitorInfo(AllMonitorInfo* all_monitor_info){
-// 检查输出参数是否有效
+bool RpcClient::GetAllMonitorInfo(AllMonitorInfo* all_monitor_info) {
+  // 检查输出参数是否有效
   if (!all_monitor_info) {
     Logger::getInstance().error("Invalid argument: monitor_info is nullptr!");
     return false;
