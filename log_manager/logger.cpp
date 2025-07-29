@@ -1,7 +1,7 @@
 #include "Logger.hpp"
 
 int main() {
-    Logger& logger = Logger::getInstance();
+    Logger & logger = Logger::getInstance();
     logger.setLogLevel(Logger::LogLevel::DEBUG);
 
     logger.debug("This is a debug message");

@@ -7,13 +7,12 @@
 namespace monitor {
 
 class QMonitorBase : public QAbstractTableModel {
-  Q_OBJECT
- private:
-  /* data */
- public:
-  explicit QMonitorBase(QObject *parent = nullptr)
-      : QAbstractTableModel(parent) {};
-  virtual ~QMonitorBase() {};
+    Q_OBJECT
+  private:
+    /* data */
+  public:
+    explicit QMonitorBase(QObject * parent = nullptr) : QAbstractTableModel(parent) {};
+    virtual ~QMonitorBase() {};
 };
 
 }  // namespace monitor
