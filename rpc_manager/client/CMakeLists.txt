@@ -8,21 +8,21 @@ set(CLIENT_SOURCE
 )
 
 # ###########
-find_package(GTest REQUIRED)
-add_executable(client_exec ${CLIENT_SOURCE})
-target_include_directories(client_exec PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-target_link_libraries(client_exec
-    PUBLIC  
-        monitor_proto
-        logger
-        utils
-        gRPC::grpc++ 
-        gRPC::grpc
-        GTest::gtest
-        GTest::gtest_main
-)
+# find_package(GTest REQUIRED)
+# add_executable(client_exec ${CLIENT_SOURCE})
+# target_include_directories(client_exec PUBLIC
+#     ${CMAKE_CURRENT_SOURCE_DIR}/include
+# )
+# target_link_libraries(client_exec
+#     PUBLIC  
+#         monitor_proto
+#         logger
+#         utils
+#         gRPC::grpc++ 
+#         gRPC::grpc
+#         GTest::gtest
+#         GTest::gtest_main
+# )
 # ###########
 
 

@@ -21,11 +21,11 @@ class QMonitorBase : public QAbstractTableModel {
   public:
     explicit QMonitorBase(QObject * parent = nullptr) : QAbstractTableModel(parent) {
         // 初始化表头字体
-        headerFont.setFamily("Microsoft YaHei");
-        if (!headerFont.exactMatch()) {
-            headerFont.setFamily("Arial");
-        }
-        headerFont.setPointSize(10);
+        // headerFont.setFamily("WenQuanYi Micro Hei");
+        // if (!headerFont.exactMatch()) {
+        //     headerFont.setFamily("WenQuanYi Micro Hei");
+        // }
+        headerFont.setPointSize(15);
         headerFont.setWeight(QFont::Bold);
 
         // 初始化表头背景颜色

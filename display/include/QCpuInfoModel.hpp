@@ -26,7 +26,7 @@ class QCpuInfoModel : public QMonitorBase {
     // cloumn name 返回表格表头的数据
     QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
 
-    void UpdateMonitorInfo(const monitor::proto::MonitorInfo & monitor_info);
+    void updateMonitorInfo(const monitor::proto::MonitorInfo & monitor_info);
 
   signals:
 
@@ -36,7 +36,9 @@ class QCpuInfoModel : public QMonitorBase {
     std::vector<std::vector<QVariant>> monitor_data_;
     QStringList                        header_;
 
-    enum CpuInfo { NAME = 0, MODEL_NAME, MHZ, CACHE_SIZE_KB, CORE_NUMS };
+    enum CpuInfo { NAME = 0, MODEL_NAME, MHZ, CACHE_SIZE_KB, CORE_NUMS, COLUMN_MAX };
+
+    // int COLUMN_MAX_ = 5;
 };
 
 }  // namespace monitor
