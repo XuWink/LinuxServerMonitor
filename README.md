@@ -1,16 +1,8 @@
-# LinuxServerMonitor
+# LinuxServerMonitor项目介绍
 
-服务器监控系统
+本项目是我自身在学习和实习期间，将所见所学整理的一套服务器监控软件。使用的`C++`，`grpc`，`shell` , `docker` ，`proto` ，`cmake` ,`git` ，`gtest` 等技术，旨在进一步掌握C++软件开发流程，补足自己的短板。
 
-编译：
-
-mkdir build && cd build
-
-cmake -G "MinGW Makefiles" ..
-
-make
-
-# 1. 结构
+# 一、结构
 
 ```
 .
@@ -30,7 +22,7 @@ make
     └── CMakeLists.txt      # 监控界面模块（可选）
 ```
 
-# 2. 流程结构
+# 二、流程结构
 
 ```
 ┌───────────────────────────────────────────────────────────────────┐
@@ -63,13 +55,13 @@ make
 └───────────────────────────────────────────────────────────────────┘
 ```
 
-# 2. 各个模块介绍
+# 三、各个模块介绍
 
 utils模块：[utils](./utils/README.md ":include :type=markdown")
 
 proto模块：[proto](./proto/README.md ":include :type=markdown")
 
-# 3. docker构建环境
+# 四、docker构建环境
 
 ```shell
 cd docker/scripts
@@ -85,7 +77,7 @@ cd docker/scripts
 ./docker_rm_image.sh
 ```
 
-# 4. 编译项目
+# 五、编译项目
 
 ```shell
 ./monitor_docker_into.sh
@@ -93,6 +85,12 @@ cd work/build
 cmake ..
 make -j8
 ```
+
+# 六、添加新的模块流程
+
+由于精力和时间问题，本项目没有对Linux系统中的所有资源进行监控，只是对经常接触使用到的资源进行了监控。本项目是我在实习期间结合自己的所见所学，设计的一套代码，代码结果设计的比较合理（我目前的水平），各个模块之间的耦合度很低。所以你如果想要动手实现自己的模块，可以按照下面的流程来添加自己的代码。
+
+## 6.1
 
 
 
