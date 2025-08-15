@@ -367,7 +367,7 @@ std::vector<QVariant> QCpuLoadModel::insertOneCpuLoad(const monitor::proto::CpuL
 
 
 
-## 6.4 集成的总页面
+## 6.4 集成到总页面
 
 在`QMonitorMainWidget.hpp` 中定义`QTableView * cpu_load_view_ = nullptr;` 和`QCpuLoadModel * cpu_load_model_ = nullptr;` 
 
