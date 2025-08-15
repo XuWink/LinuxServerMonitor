@@ -1,11 +1,14 @@
 #ifndef Q_MONITOR_MAIN_WIDGET_
 #define Q_MONITOR_MAIN_WIDGET_
 
+#include "Logger.hpp"
 #include "monitor.grpc.pb.h"
 #include "QCpuInfoModel.hpp"
+#include "QCpuLoadModel.hpp"
 
 #include <QStandardItemModel>
 #include <QtWidgets>
+#include <sstream>
 #include <string>
 #include <thread>
 
@@ -35,16 +38,22 @@ class QMonitorMainWidget : public QWidget {
   private slots:
     void clickCpuButton();
 
+    void setupTableViewStyle(QTableView * tableView, const QFont & font);
+
   private:
     // 进行视图展示，展示models
     // QTableView * monitor_view_  = nullptr;
     QTableView * cpu_info_view_ = nullptr;
+    QTableView * cpu_load_view_ = nullptr;
+
+    // 所有数据模型
+    QCpuInfoModel * cpu_info_model_ = nullptr;
+    QCpuLoadModel * cpu_load_model_ = nullptr;
 
     // 菜单栏，进行页面跳转
     QStackedLayout * stack_content_ = nullptr;
 
-    /// 所有数据模型
-    QCpuInfoModel * cpu_info_model_ = nullptr;
+    void setWindowSize();
 };
 
 }  // namespace monitor

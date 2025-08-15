@@ -33,6 +33,7 @@
 #include <google/protobuf/unknown_field_set.h>
 #include <google/protobuf/empty.pb.h>
 #include "cpu_info.pb.h"
+#include "cpu_load.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_monitor_2eproto
@@ -188,6 +189,7 @@ class MonitorInfo PROTOBUF_FINAL :
   enum : int {
     kCpuInfoFieldNumber = 2,
     kNameFieldNumber = 1,
+    kCpuLoadFieldNumber = 3,
   };
   // repeated .monitor.proto.CpuInfo cpu_info = 2;
   int cpu_info_size() const;
@@ -223,6 +225,24 @@ class MonitorInfo PROTOBUF_FINAL :
   std::string* _internal_mutable_name();
   public:
 
+  // .monitor.proto.CpuLoad cpu_load = 3;
+  bool has_cpu_load() const;
+  private:
+  bool _internal_has_cpu_load() const;
+  public:
+  void clear_cpu_load();
+  const ::monitor::proto::CpuLoad& cpu_load() const;
+  ::monitor::proto::CpuLoad* release_cpu_load();
+  ::monitor::proto::CpuLoad* mutable_cpu_load();
+  void set_allocated_cpu_load(::monitor::proto::CpuLoad* cpu_load);
+  private:
+  const ::monitor::proto::CpuLoad& _internal_cpu_load() const;
+  ::monitor::proto::CpuLoad* _internal_mutable_cpu_load();
+  public:
+  void unsafe_arena_set_allocated_cpu_load(
+      ::monitor::proto::CpuLoad* cpu_load);
+  ::monitor::proto::CpuLoad* unsafe_arena_release_cpu_load();
+
   // @@protoc_insertion_point(class_scope:monitor.proto.MonitorInfo)
  private:
   class _Internal;
@@ -232,6 +252,7 @@ class MonitorInfo PROTOBUF_FINAL :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::monitor::proto::CpuInfo > cpu_info_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  ::monitor::proto::CpuLoad* cpu_load_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_monitor_2eproto;
 };
@@ -486,6 +507,83 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::monitor::proto::CpuInf
 MonitorInfo::cpu_info() const {
   // @@protoc_insertion_point(field_list:monitor.proto.MonitorInfo.cpu_info)
   return cpu_info_;
+}
+
+// .monitor.proto.CpuLoad cpu_load = 3;
+inline bool MonitorInfo::_internal_has_cpu_load() const {
+  return this != internal_default_instance() && cpu_load_ != nullptr;
+}
+inline bool MonitorInfo::has_cpu_load() const {
+  return _internal_has_cpu_load();
+}
+inline const ::monitor::proto::CpuLoad& MonitorInfo::_internal_cpu_load() const {
+  const ::monitor::proto::CpuLoad* p = cpu_load_;
+  return p != nullptr ? *p : reinterpret_cast<const ::monitor::proto::CpuLoad&>(
+      ::monitor::proto::_CpuLoad_default_instance_);
+}
+inline const ::monitor::proto::CpuLoad& MonitorInfo::cpu_load() const {
+  // @@protoc_insertion_point(field_get:monitor.proto.MonitorInfo.cpu_load)
+  return _internal_cpu_load();
+}
+inline void MonitorInfo::unsafe_arena_set_allocated_cpu_load(
+    ::monitor::proto::CpuLoad* cpu_load) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(cpu_load_);
+  }
+  cpu_load_ = cpu_load;
+  if (cpu_load) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:monitor.proto.MonitorInfo.cpu_load)
+}
+inline ::monitor::proto::CpuLoad* MonitorInfo::release_cpu_load() {
+  
+  ::monitor::proto::CpuLoad* temp = cpu_load_;
+  cpu_load_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::monitor::proto::CpuLoad* MonitorInfo::unsafe_arena_release_cpu_load() {
+  // @@protoc_insertion_point(field_release:monitor.proto.MonitorInfo.cpu_load)
+  
+  ::monitor::proto::CpuLoad* temp = cpu_load_;
+  cpu_load_ = nullptr;
+  return temp;
+}
+inline ::monitor::proto::CpuLoad* MonitorInfo::_internal_mutable_cpu_load() {
+  
+  if (cpu_load_ == nullptr) {
+    auto* p = CreateMaybeMessage<::monitor::proto::CpuLoad>(GetArena());
+    cpu_load_ = p;
+  }
+  return cpu_load_;
+}
+inline ::monitor::proto::CpuLoad* MonitorInfo::mutable_cpu_load() {
+  // @@protoc_insertion_point(field_mutable:monitor.proto.MonitorInfo.cpu_load)
+  return _internal_mutable_cpu_load();
+}
+inline void MonitorInfo::set_allocated_cpu_load(::monitor::proto::CpuLoad* cpu_load) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(cpu_load_);
+  }
+  if (cpu_load) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(cpu_load)->GetArena();
+    if (message_arena != submessage_arena) {
+      cpu_load = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, cpu_load, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  cpu_load_ = cpu_load;
+  // @@protoc_insertion_point(field_set_allocated:monitor.proto.MonitorInfo.cpu_load)
 }
 
 // -------------------------------------------------------------------

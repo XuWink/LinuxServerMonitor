@@ -37,6 +37,7 @@ int main(int argc, char * argv[]) {
     //     std::cout << "cpu缓存\t: " << cpu.cache_size_kb() << std::endl;
     //     std::cout << "cpu核心\t: " << cpu.core_nums() << std::endl;
     // }
+    // std::cout << "cpu load1: " << monitor_info.cpu_load().load1() << std::endl;
 
     // 1. GUI
     monitor::QMonitorMainWidget monitor_widget(name);

@@ -6,10 +6,12 @@ package monitor.proto;
 
 import "google/protobuf/empty.proto";
 import "cpu_info.proto";
+import "cpu_load.proto";
 
 message MonitorInfo {
     string name = 1;                    // monitor名字
     repeated CpuInfo cpu_info = 2;      // cpu信息，repeated表示cpu_info是一个列表，用于多cpu系统
+    CpuLoad cpu_load = 3;
 }
 
 message AllMonitorInfo {

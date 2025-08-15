@@ -15,60 +15,87 @@ QMonitorMainWidget::QMonitorMainWidget(const std::string & name, QWidget * paren
     auto * mainLayout = new QGridLayout(this);
     mainLayout->addWidget(initButtonMenu(name), 0, 0);
     mainLayout->addLayout(stack_content_, 1, 0);
+
+    setWindowSize();
 }
 
 QMonitorMainWidget::~QMonitorMainWidget() {}
 
-// QWidget * QMonitorMainWidget::showAllMonitorWidget(const std::string & name) {
-//     QWidget * widget = new QWidget();
-//     stack_content_   = new QStackedLayout();
-//     // 初始化各个信息
-//     stack_content_->addWidget(initCpuWidget());
-
-//     auto * mainLayout = new QGridLayout(this);
-//     // 初始化菜单按钮
-//     mainLayout->addWidget(initButtonMenu(name), 1, 0);
-//     // 按钮点击进行内容展示
-//     mainLayout->addWidget(stack_content_, 2, 0);
-//     widget->setLayout(layout);
-//     return widget;
-// }
-
 QWidget * QMonitorMainWidget::initCpuMonitorWidget() {
-    // 顶层容器指定为父对象，qt自动析构
+    // 创建顶层容器，指定父对象以便 Qt 自动析构
     QWidget * page = new QWidget(this);
+    page->setObjectName("cpuMonitorPage");
+    page->setStyleSheet("#cpuMonitorPage { background-color: #f5f5f5; border-radius: 4px; }");
 
-    // 统一字体
+    // 统一字体设置
     QFont labelFont("Microsoft YaHei", 10, QFont::Bold);
+    QFont tableFont("Microsoft YaHei", 9);
 
-    // CPU INFO
-    QLabel * cpu_info_label = new QLabel(tr("CPU 信息："), page);
-    cpu_info_label->setFont(labelFont);
+    // ==================== CPU 信息区域 ====================
+    QLabel * cpuInfoLabel = new QLabel(tr("CPU 信息："), page);
+    cpuInfoLabel->setFont(labelFont);
+    cpuInfoLabel->setStyleSheet("color: #333333; padding: 4px 0;");
 
     cpu_info_view_  = new QTableView(page);
     cpu_info_model_ = new QCpuInfoModel(this);
     cpu_info_view_->setModel(cpu_info_model_);
 
-    cpu_info_view_->setAlternatingRowColors(true);                                   // 斑马线效果
-    cpu_info_view_->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);  // 所有列宽拉伸
-    cpu_info_view_->setSelectionBehavior(QAbstractItemView::SelectRows);             // 点击选择整行
-    // cpu_info_view->setFont();
+    // 表格样式设置
+    setupTableViewStyle(cpu_info_view_, tableFont);
 
+    // ==================== CPU 负载区域 ====================
+    QLabel * cpuLoadLabel = new QLabel(tr("CPU 负载："), page);
+    cpuLoadLabel->setFont(labelFont);
+    cpuLoadLabel->setStyleSheet("color: #333333; padding: 4px 0;");
+
+    cpu_load_view_  = new QTableView(page);
+    cpu_load_model_ = new QCpuLoadModel(this);
+    cpu_load_view_->setModel(cpu_load_model_);
+
+    // 表格样式设置（复用通用配置）
+    setupTableViewStyle(cpu_load_view_, tableFont);
+    cpu_load_view_->verticalHeader()->setVisible(false);  // 只有一行，隐藏行号
+
+    // ==================== 布局设置 ====================
     QGridLayout * layout = new QGridLayout(page);
+    int           row    = 0;
 
-    int row = 0;
-    layout->addWidget(cpu_info_label, row, 0);
+    layout->addWidget(cpuInfoLabel, row, 0);
     layout->addWidget(cpu_info_view_, row + 1, 0, 1, 2);
+    row += 2;
 
-    // 设置布局间距（可选）
+    layout->addWidget(cpuLoadLabel, row, 0);
+    layout->addWidget(cpu_load_view_, row + 1, 0, 1, 2);
+    row += 2;
+
+    // 布局边距和间距设置
     layout->setContentsMargins(10, 10, 10, 10);
     layout->setVerticalSpacing(8);
-
-    // row += 2;
-    // layout->addWidget(cpuLoadLabel, row, 0);
-    // layout->addWidget(cpu_load_monitor_view_, row + 1, 0, , 2, 2);
+    layout->setHorizontalSpacing(5);
 
     return page;
+}
+
+// 表格样式设置的通用函数
+void QMonitorMainWidget::setupTableViewStyle(QTableView * tableView, const QFont & font) {
+    if (!tableView) {
+        return;
+    }
+
+    tableView->setFont(font);
+    tableView->setAlternatingRowColors(true);
+    tableView->setStyleSheet(
+        "QTableView { background-color: #ffffff; border: 1px solid #dddddd; "
+        "border-radius: 3px; gridline-color: #eeeeee; }"
+        "QTableView::alternatingRowColors { background-color: #f9f9f9; }"
+        "QHeaderView::section { background-color: #f0f0f0; border: 1px solid #dddddd; "
+        "padding: 4px; font-weight: bold; }");
+
+    tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);  // 禁止编辑
+    tableView->setFocusPolicy(Qt::NoFocus);                         // 去掉选中时的焦点框
+    tableView->verticalHeader()->setDefaultSectionSize(25);         // 设置行高
 }
 
 QWidget * QMonitorMainWidget::initButtonMenu(const std::string & name) {
@@ -103,21 +130,33 @@ QWidget * QMonitorMainWidget::initButtonMenu(const std::string & name) {
 
 // 更新数据
 void QMonitorMainWidget::updateData(const monitor::proto::MonitorInfo & monitor_info) {
-    // for (const auto & cpu : monitor_info.cpu_info()) {
-    //     std::cout << "cpu名称\t: " << cpu.name() << std::endl;
-    //     std::cout << "cpu型号\t: " << cpu.model_name() << std::endl;
-    //     std::cout << "cpu频率\t: " << cpu.mhz() << std::endl;
-    //     std::cout << "cpu缓存\t: " << cpu.cache_size_kb() << std::endl;
-    //     std::cout << "cpu核心\t: " << cpu.core_nums() << std::endl;
-    //     std::cout << std::endl;
-    // }
+    std::stringstream ss;
+    ss << "CPU LOAD: "
+       << "load1: " << monitor_info.cpu_load().load1() << ", "
+       << "load5: " << monitor_info.cpu_load().load5() << ", "
+       << "load15: " << monitor_info.cpu_load().load15() << ", "
+       << "running_total: " << monitor_info.cpu_load().running_total() << ", "
+       << "last_pid: " << monitor_info.cpu_load().last_pid();
+    Logger::getInstance().info(ss.str());
 
     cpu_info_model_->updateMonitorInfo(monitor_info);
+    cpu_load_model_->updateMonitorInfo(monitor_info);
 }
 
 // 槽函数
 void QMonitorMainWidget::clickCpuButton() {
     stack_content_->setCurrentIndex(0);
+}
+
+void QMonitorMainWidget::setWindowSize() {
+    // 设置最小尺寸（宽不小于 400，高不小于 300）
+    setMinimumSize(400, 300);
+
+    // 设置最大尺寸（宽不大于 1200，高不大于 900）
+    setMaximumSize(1200, 900);
+
+    // 初始大小设为 800x600（在最小和最大之间）
+    resize(1600, 600);
 }
 
 }  // namespace monitor

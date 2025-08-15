@@ -39,6 +39,6 @@ target_link_libraries(client
         gRPC::grpc++ 
         gRPC::grpc
 
-        GTest::gtest
-        GTest::gtest_main
+        # GTest::gtest
+        # GTest::gtest_main
 )

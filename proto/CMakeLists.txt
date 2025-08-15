@@ -11,6 +11,7 @@ file(MAKE_DIRECTORY ${GENERATED_DIR})
 set(PROTO_FILES
     ${PROTO_DIR}/monitor.proto
     ${PROTO_DIR}/cpu_info.proto
+    ${PROTO_DIR}/cpu_load.proto
 )
 
 # 获取 gRPC 插件路径

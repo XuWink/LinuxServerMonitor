@@ -23,7 +23,6 @@ void MonitorWorker::stopPolling() {
 }
 
 void MonitorWorker::doPoll() {
-    // qDebug() << "doPoll() called, running:" << running_;
     if (!running_) {
         return;
     }

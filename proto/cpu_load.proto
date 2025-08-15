@@ -1,0 +1,11 @@
+syntax="proto3";
+package monitor.proto;
+
+// 系统负载信息
+message CpuLoad {
+  double load1 = 1;         // 最近1分钟平均负载
+  double load5 = 2;         // 最近5分钟平均负载
+  double load15 = 3;        // 最近15分钟平均负载
+  string running_total = 4; // 当前运行/总进程数，例如 "1/302"
+  uint32 last_pid = 5;      // 最近运行的进程PID
+}

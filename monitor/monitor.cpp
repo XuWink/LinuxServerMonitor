@@ -1,4 +1,5 @@
 #include "CpuInfoMonitor.hpp"
+#include "CpuLoadMonitor.hpp"
 #include "monitor.grpc.pb.h"
 #include "RpcClient.hpp"
 
@@ -20,6 +21,7 @@ void RunMonitor() {
 
     std::vector<std::shared_ptr<monitor::MonitorBase>> runners;
     runners.emplace_back(std::make_shared<monitor::CpuInfoMonitor>());
+    runners.emplace_back(std::make_shared<monitor::CpuLoadMonitor>());
 
     // 注册信号处理（可选）
     signal(SIGINT, SignalHandler);

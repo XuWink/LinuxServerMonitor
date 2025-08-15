@@ -4,6 +4,11 @@ cmake_minimum_required(VERSION 3.5)
 # 定义项目的名称和使用的编程语言
 project(linux_server_monitor LANGUAGES CXX)
 
+# 开启调试模式（默认关闭优化）
+set(CMAKE_BUILD_TYPE Debug)
+# 强制添加调试符号（即使在Release模式也生效）
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0")  # -O0 关闭优化，确保调试时代码与源码对应
+
 # 设置C++标准
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

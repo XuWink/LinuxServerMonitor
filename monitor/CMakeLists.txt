@@ -2,6 +2,7 @@
 set(MONITOR_SOURCE
     ${CMAKE_CURRENT_SOURCE_DIR}/monitor.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/CpuInfoMonitor.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/CpuLoadMonitor.cpp
 )
 
 add_executable(monitor ${MONITOR_SOURCE})
