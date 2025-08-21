@@ -34,6 +34,7 @@
 #include <google/protobuf/empty.pb.h>
 #include "cpu_info.pb.h"
 #include "cpu_load.pb.h"
+#include "cpu_softirqs.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_monitor_2eproto
@@ -188,6 +189,7 @@ class MonitorInfo PROTOBUF_FINAL :
 
   enum : int {
     kCpuInfoFieldNumber = 2,
+    kSoftIrqsFieldNumber = 4,
     kNameFieldNumber = 1,
     kCpuLoadFieldNumber = 3,
   };
@@ -208,6 +210,24 @@ class MonitorInfo PROTOBUF_FINAL :
   ::monitor::proto::CpuInfo* add_cpu_info();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::monitor::proto::CpuInfo >&
       cpu_info() const;
+
+  // repeated .monitor.proto.SoftIrqs soft_irqs = 4;
+  int soft_irqs_size() const;
+  private:
+  int _internal_soft_irqs_size() const;
+  public:
+  void clear_soft_irqs();
+  ::monitor::proto::SoftIrqs* mutable_soft_irqs(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::monitor::proto::SoftIrqs >*
+      mutable_soft_irqs();
+  private:
+  const ::monitor::proto::SoftIrqs& _internal_soft_irqs(int index) const;
+  ::monitor::proto::SoftIrqs* _internal_add_soft_irqs();
+  public:
+  const ::monitor::proto::SoftIrqs& soft_irqs(int index) const;
+  ::monitor::proto::SoftIrqs* add_soft_irqs();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::monitor::proto::SoftIrqs >&
+      soft_irqs() const;
 
   // string name = 1;
   void clear_name();
@@ -251,6 +271,7 @@ class MonitorInfo PROTOBUF_FINAL :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::monitor::proto::CpuInfo > cpu_info_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::monitor::proto::SoftIrqs > soft_irqs_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::monitor::proto::CpuLoad* cpu_load_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -584,6 +605,42 @@ inline void MonitorInfo::set_allocated_cpu_load(::monitor::proto::CpuLoad* cpu_l
   }
   cpu_load_ = cpu_load;
   // @@protoc_insertion_point(field_set_allocated:monitor.proto.MonitorInfo.cpu_load)
+}
+
+// repeated .monitor.proto.SoftIrqs soft_irqs = 4;
+inline int MonitorInfo::_internal_soft_irqs_size() const {
+  return soft_irqs_.size();
+}
+inline int MonitorInfo::soft_irqs_size() const {
+  return _internal_soft_irqs_size();
+}
+inline ::monitor::proto::SoftIrqs* MonitorInfo::mutable_soft_irqs(int index) {
+  // @@protoc_insertion_point(field_mutable:monitor.proto.MonitorInfo.soft_irqs)
+  return soft_irqs_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::monitor::proto::SoftIrqs >*
+MonitorInfo::mutable_soft_irqs() {
+  // @@protoc_insertion_point(field_mutable_list:monitor.proto.MonitorInfo.soft_irqs)
+  return &soft_irqs_;
+}
+inline const ::monitor::proto::SoftIrqs& MonitorInfo::_internal_soft_irqs(int index) const {
+  return soft_irqs_.Get(index);
+}
+inline const ::monitor::proto::SoftIrqs& MonitorInfo::soft_irqs(int index) const {
+  // @@protoc_insertion_point(field_get:monitor.proto.MonitorInfo.soft_irqs)
+  return _internal_soft_irqs(index);
+}
+inline ::monitor::proto::SoftIrqs* MonitorInfo::_internal_add_soft_irqs() {
+  return soft_irqs_.Add();
+}
+inline ::monitor::proto::SoftIrqs* MonitorInfo::add_soft_irqs() {
+  // @@protoc_insertion_point(field_add:monitor.proto.MonitorInfo.soft_irqs)
+  return _internal_add_soft_irqs();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::monitor::proto::SoftIrqs >&
+MonitorInfo::soft_irqs() const {
+  // @@protoc_insertion_point(field_list:monitor.proto.MonitorInfo.soft_irqs)
+  return soft_irqs_;
 }
 
 // -------------------------------------------------------------------

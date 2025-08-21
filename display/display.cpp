@@ -29,15 +29,6 @@ int main(int argc, char * argv[]) {
     }
     const std::string name = monitor_info.name();  // 这里就拿到 name 了
     std::cout << "主机名：" << name << std::endl;
-    // 能够正常打印数据
-    // for (const auto & cpu : monitor_info.cpu_info()) {
-    //     std::cout << "cpu名称\t: " << cpu.name() << std::endl;
-    //     std::cout << "cpu型号\t: " << cpu.model_name() << std::endl;
-    //     std::cout << "cpu频率\t: " << cpu.mhz() << std::endl;
-    //     std::cout << "cpu缓存\t: " << cpu.cache_size_kb() << std::endl;
-    //     std::cout << "cpu核心\t: " << cpu.core_nums() << std::endl;
-    // }
-    // std::cout << "cpu load1: " << monitor_info.cpu_load().load1() << std::endl;
 
     // 1. GUI
     monitor::QMonitorMainWidget monitor_widget(name);

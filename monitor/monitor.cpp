@@ -1,5 +1,6 @@
 #include "CpuInfoMonitor.hpp"
 #include "CpuLoadMonitor.hpp"
+#include "CpuSoftIrqsMonitor.hpp"
 #include "monitor.grpc.pb.h"
 #include "RpcClient.hpp"
 
@@ -7,7 +8,6 @@
 #include <cstdlib>
 #include <memory>
 #include <thread>
-
 std::atomic<bool> g_running{ true };
 
 void SignalHandler(int) {
@@ -22,6 +22,7 @@ void RunMonitor() {
     std::vector<std::shared_ptr<monitor::MonitorBase>> runners;
     runners.emplace_back(std::make_shared<monitor::CpuInfoMonitor>());
     runners.emplace_back(std::make_shared<monitor::CpuLoadMonitor>());
+    runners.emplace_back(std::make_shared<monitor::CpuSoftIrqsMonitor>());
 
     // 注册信号处理（可选）
     signal(SIGINT, SignalHandler);
@@ -40,7 +41,8 @@ void RunMonitor() {
             rpc_client.SetMonitorInfo(monitor_info);
 
         } catch (const std::exception & e) {
-            std::cerr << "Error in monitoring loop: " << e.what() << std::endl;
+            Logger::getInstance().error(std::string("Error in monitoring loop: " + std::string(e.what())));
+            // std::cerr << "Error in monitoring loop: " << e.what() << std::endl;
         }
 
         if (g_running) {  // 避免最后一次不必要的等待

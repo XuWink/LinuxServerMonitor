@@ -5,6 +5,7 @@
 #include "monitor.grpc.pb.h"
 #include "QCpuInfoModel.hpp"
 #include "QCpuLoadModel.hpp"
+#include "QCpuSoftIrqsModel.hpp"
 
 #include <QStandardItemModel>
 #include <QtWidgets>
@@ -29,6 +30,7 @@ class QMonitorMainWidget : public QWidget {
     // 各个要监控的信息
     QWidget * initCpuMonitorWidget();
     // QWidget * initCpuLoad();
+    QWidget * initSoftIrqsMonitorWidget();
 
     QWidget * initButtonMenu(const std::string & name);
 
@@ -37,18 +39,21 @@ class QMonitorMainWidget : public QWidget {
 
   private slots:
     void clickCpuButton();
+    void clickSoftIrqButton();
 
     void setupTableViewStyle(QTableView * tableView, const QFont & font);
 
   private:
     // 进行视图展示，展示models
     // QTableView * monitor_view_  = nullptr;
-    QTableView * cpu_info_view_ = nullptr;
-    QTableView * cpu_load_view_ = nullptr;
+    QTableView * cpu_info_view_     = nullptr;
+    QTableView * cpu_load_view_     = nullptr;
+    QTableView * cpu_softirqs_view_ = nullptr;
 
     // 所有数据模型
-    QCpuInfoModel * cpu_info_model_ = nullptr;
-    QCpuLoadModel * cpu_load_model_ = nullptr;
+    QCpuInfoModel *     cpu_info_model_     = nullptr;
+    QCpuLoadModel *     cpu_load_model_     = nullptr;
+    QCpuSoftIrqsModel * cpu_softirqs_model_ = nullptr;
 
     // 菜单栏，进行页面跳转
     QStackedLayout * stack_content_ = nullptr;

@@ -12,6 +12,7 @@ set(PROTO_FILES
     ${PROTO_DIR}/monitor.proto
     ${PROTO_DIR}/cpu_info.proto
     ${PROTO_DIR}/cpu_load.proto
+    ${PROTO_DIR}/cpu_softirqs.proto
 )
 
 # 获取 gRPC 插件路径

@@ -31,7 +31,7 @@ void MonitorWorker::doPoll() {
     try {
         client_.GetMonitorInfo(&info);
     } catch (const std::exception & e) {
-        qWarning() << "RPC failed:" << e.what();
+        Logger::getInstance().error(QString("RPC failed: %1").arg(e.what()).toStdString());
         return;
     }
     // qDebug() << "Emit newDataArrived";

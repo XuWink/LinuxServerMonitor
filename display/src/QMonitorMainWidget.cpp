@@ -9,7 +9,7 @@ QMonitorMainWidget::QMonitorMainWidget(const std::string & name, QWidget * paren
 
     // 添加监控页面
     stack_content_->addWidget(initCpuMonitorWidget());
-    // stack_content_->addWidget(initSoftIrqWidget());
+    stack_content_->addWidget(initSoftIrqsMonitorWidget());
 
     // 组装主界面
     auto * mainLayout = new QGridLayout(this);
@@ -76,6 +76,53 @@ QWidget * QMonitorMainWidget::initCpuMonitorWidget() {
     return page;
 }
 
+QWidget * QMonitorMainWidget::initSoftIrqsMonitorWidget() {
+    // 创建顶层容器，指定父对象（当前窗口），确保Qt自动析构
+    QWidget * widget = new QWidget(this);
+    widget->setObjectName("softIrqsMonitorPage");
+    widget->setStyleSheet("#softIrqsMonitorPage { background-color: #f5f5f5; border-radius: 4px; }");
+
+    // 统一字体设置（与CPU监控页保持一致）
+    QFont labelFont("Microsoft YaHei", 10, QFont::Bold);
+    QFont tableFont("Microsoft YaHei", 9);
+
+    // ==================== 中断信息区域 ====================
+    QLabel * softirqsLabel = new QLabel(tr("系统软中断信息："), widget);
+    softirqsLabel->setFont(labelFont);
+    softirqsLabel->setStyleSheet("color: #333333; padding: 4px 0;");
+
+    // 表格视图与模型（使用成员变量存储，确保生命周期正确）
+    cpu_softirqs_view_  = new QTableView(widget);
+    // 模型指定父对象为当前窗口，避免内存泄漏
+    cpu_softirqs_model_ = new QCpuSoftIrqsModel(this);
+
+    // 排序代理模型（修复原代码中类型错误，正确关联源模型）
+    QSortFilterProxyModel * sortProxy = new QSortFilterProxyModel(this);
+    sortProxy->setSourceModel(cpu_softirqs_model_);  // 关联自定义模型
+    cpu_softirqs_view_->setModel(sortProxy);         // 视图使用代理模型实现排序
+
+    // 启用排序功能（需配合代理模型）
+    cpu_softirqs_view_->setSortingEnabled(true);
+
+    // 复用表格样式设置（与CPU监控页保持一致）
+    setupTableViewStyle(cpu_softirqs_view_, tableFont);
+
+    // ==================== 布局设置 ====================
+    QGridLayout * layout = new QGridLayout(widget);
+    int           row    = 0;  // 用行号变量管理布局，避免硬编码
+
+    layout->addWidget(softirqsLabel, row, 0);
+    layout->addWidget(cpu_softirqs_view_, row + 1, 0, 1, 2);  // 占2列，与CPU监控页布局对齐
+    row += 2;
+
+    // 布局边距和间距（与CPU监控页保持一致，统一视觉风格）
+    layout->setContentsMargins(10, 10, 10, 10);
+    layout->setVerticalSpacing(8);
+    layout->setHorizontalSpacing(5);
+
+    return widget;
+}
+
 // 表格样式设置的通用函数
 void QMonitorMainWidget::setupTableViewStyle(QTableView * tableView, const QFont & font) {
     if (!tableView) {
@@ -106,8 +153,8 @@ QWidget * QMonitorMainWidget::initButtonMenu(const std::string & name) {
     };
 
     const QList<ButtonInfo> infos = {
-        { "cpu", &QMonitorMainWidget::clickCpuButton },
-        // {"soft_irq", SLOT(clickSoftIrqButton())},
+        { "cpu",    &QMonitorMainWidget::clickCpuButton     },
+        { "软中断", &QMonitorMainWidget::clickSoftIrqButton }
         // {"net", SLOT(clickNetButton())}
     };
 
@@ -116,7 +163,8 @@ QWidget * QMonitorMainWidget::initButtonMenu(const std::string & name) {
 
     auto * layout = new QHBoxLayout;
     for (const auto & info : infos) {
-        auto * btn = new QPushButton(QString::fromStdString(name) + "_" + info.suffix, this);
+        auto * btn = new QPushButton(info.suffix, this);
+        // auto * btn = new QPushButton(QString::fromStdString(name) + "_" + info.suffix, this);
         btn->setFont(font);
         btn->setObjectName(info.suffix);
         connect(btn, &QPushButton::clicked, this, info.slot);
@@ -130,22 +178,27 @@ QWidget * QMonitorMainWidget::initButtonMenu(const std::string & name) {
 
 // 更新数据
 void QMonitorMainWidget::updateData(const monitor::proto::MonitorInfo & monitor_info) {
-    std::stringstream ss;
-    ss << "CPU LOAD: "
-       << "load1: " << monitor_info.cpu_load().load1() << ", "
-       << "load5: " << monitor_info.cpu_load().load5() << ", "
-       << "load15: " << monitor_info.cpu_load().load15() << ", "
-       << "running_total: " << monitor_info.cpu_load().running_total() << ", "
-       << "last_pid: " << monitor_info.cpu_load().last_pid();
-    Logger::getInstance().info(ss.str());
+    // std::stringstream ss;
+    // ss << "CPU LOAD: "
+    //    << "load1: " << monitor_info.cpu_load().load1() << ", "
+    //    << "load5: " << monitor_info.cpu_load().load5() << ", "
+    //    << "load15: " << monitor_info.cpu_load().load15() << ", "
+    //    << "running_total: " << monitor_info.cpu_load().running_total() << ", "
+    //    << "last_pid: " << monitor_info.cpu_load().last_pid();
+    // Logger::getInstance().info(ss.str());
 
     cpu_info_model_->updateMonitorInfo(monitor_info);
     cpu_load_model_->updateMonitorInfo(monitor_info);
+    cpu_softirqs_model_->updateMonitorInfo(monitor_info);
 }
 
 // 槽函数
 void QMonitorMainWidget::clickCpuButton() {
     stack_content_->setCurrentIndex(0);
+}
+
+void QMonitorMainWidget::clickSoftIrqButton() {
+    stack_content_->setCurrentIndex(1);
 }
 
 void QMonitorMainWidget::setWindowSize() {

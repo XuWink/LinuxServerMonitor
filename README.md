@@ -83,7 +83,7 @@ cd docker/scripts
 ./monitor_docker_into.sh
 cd work/build
 cmake ..
-make -j8
+make -j6
 ```
 
 # 六、添加新的模块流程

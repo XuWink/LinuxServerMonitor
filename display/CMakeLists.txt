@@ -16,6 +16,7 @@ set(DISPLAY_HEADER
     ${CMAKE_CURRENT_SOURCE_DIR}/include/QMonitorBase.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/QCpuInfoModel.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/QCpuLoadModel.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/QCpuSoftIrqsModel.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/QMonitorMainWidget.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/include/Worker.hpp
 )
@@ -25,6 +26,7 @@ set(DISPLAY_SOURCE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Worker.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/QCpuInfoModel.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/QCpuLoadModel.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/QCpuSoftIrqsModel.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/QMonitorBase.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/QMonitorMainWidget.cpp
 )
