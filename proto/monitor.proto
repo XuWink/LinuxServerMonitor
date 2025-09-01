@@ -8,12 +8,14 @@ import "google/protobuf/empty.proto";
 import "cpu_info.proto";
 import "cpu_load.proto";
 import "cpu_softirqs.proto";
+import "meminfo.proto";
 
 message MonitorInfo {
     string name = 1;                    // monitor名字
     repeated CpuInfo cpu_info = 2;      // cpu信息，repeated表示cpu_info是一个列表，用于多cpu系统
     CpuLoad cpu_load = 3;
     repeated SoftIrqs soft_irqs = 4;
+    MemInfo meminfo = 5;
 }
 
 message AllMonitorInfo {
