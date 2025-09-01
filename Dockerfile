@@ -17,6 +17,7 @@ RUN apt-get update && apt-get upgrade -y && \
     curl \
     cmake \
     git \
+    gdb \
     openssh-server \
     build-essential \
     net-tools \
@@ -32,6 +33,8 @@ RUN apt-get update && apt-get upgrade -y && \
     # gRPC and dependencies
     libc-ares-dev \
     libssl-dev \
+    # 字体
+    fonts-wqy-microhei \
     gcc \
     g++ \
     make \
@@ -70,6 +73,3 @@ RUN chmod +x /tmp/install/abseil/install_abseil.sh && \
 COPY docker/tools/install/grpc /tmp/install/grpc
 RUN chmod +x /tmp/install/grpc/install_grpc.sh && \
     /tmp/install/grpc/install_grpc.sh
-
-
-    # apt-get install  gdb

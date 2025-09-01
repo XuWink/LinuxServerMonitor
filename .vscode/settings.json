@@ -1,6 +1,7 @@
 {
     "C_Cpp.default.compilerPath": "D:/xuwenke/study_cpp/mingw64/bin/g++.exe",
     "files.associations": {
+        "*.py": "python",
         "array": "cpp",
         "atomic": "cpp",
         "bit": "cpp",
@@ -61,6 +62,10 @@
         "typeinfo": "cpp",
         "variant": "cpp",
         "condition_variable": "cpp",
-        "mutex": "cpp"
+        "mutex": "cpp",
+        "forward_list": "cpp",
+        "list": "cpp",
+        "unordered_set": "cpp",
+        "any": "cpp"
     }
 }

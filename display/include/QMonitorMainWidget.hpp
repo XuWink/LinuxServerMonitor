@@ -6,6 +6,7 @@
 #include "QCpuInfoModel.hpp"
 #include "QCpuLoadModel.hpp"
 #include "QCpuSoftIrqsModel.hpp"
+#include "QMemInfoModel.hpp"
 
 #include <QStandardItemModel>
 #include <QtWidgets>
@@ -31,7 +32,7 @@ class QMonitorMainWidget : public QWidget {
     QWidget * initCpuMonitorWidget();
     // QWidget * initCpuLoad();
     QWidget * initSoftIrqsMonitorWidget();
-
+    QWidget * initMemInfoMonitorWidget();
     QWidget * initButtonMenu(const std::string & name);
 
     // 更新所有models的数据
@@ -40,6 +41,7 @@ class QMonitorMainWidget : public QWidget {
   private slots:
     void clickCpuButton();
     void clickSoftIrqButton();
+    void clickMemInfoButton();
 
     void setupTableViewStyle(QTableView * tableView, const QFont & font);
 
@@ -49,11 +51,13 @@ class QMonitorMainWidget : public QWidget {
     QTableView * cpu_info_view_     = nullptr;
     QTableView * cpu_load_view_     = nullptr;
     QTableView * cpu_softirqs_view_ = nullptr;
+    QTableView * mem_info_view_     = nullptr;
 
     // 所有数据模型
     QCpuInfoModel *     cpu_info_model_     = nullptr;
     QCpuLoadModel *     cpu_load_model_     = nullptr;
     QCpuSoftIrqsModel * cpu_softirqs_model_ = nullptr;
+    QMemInfoModel *     mem_model_          = nullptr;
 
     // 菜单栏，进行页面跳转
     QStackedLayout * stack_content_ = nullptr;

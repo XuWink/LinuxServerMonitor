@@ -6,10 +6,10 @@ MemInfoMonitor::MemInfoMonitor() {}
 
 MemInfoMonitor::~MemInfoMonitor() {}
 
-void MemMonitor::UpdateOnce(monitor::proto::MonitorInfo * monitor_info) {
+void MemInfoMonitor::UpdateOnce(monitor::proto::MonitorInfo * monitor_info) {
     // 修正拼写错误：MenInfo -> MemInfo
     struct MemInfo           mem_info{};  // 初始化结构体，避免未定义行为
-    ReadFile                 mem_file("/proc/meminfo");
+    util::ReadFile           mem_file("/proc/meminfo");
     std::vector<std::string> mem_datas;
 
     // 定义字段名到内存信息的映射表，替代冗长的if-else
@@ -93,7 +93,7 @@ void MemMonitor::UpdateOnce(monitor::proto::MonitorInfo * monitor_info) {
     };
 
     // 读取并解析/proc/meminfo内容
-    while (mem_file.ReadLine(&mem_datas)) {
+    while (mem_file.ReadLine(mem_datas)) {
         // 校验行格式（至少包含字段名和数值）
         if (mem_datas.size() < 2) {
             mem_datas.clear();
@@ -110,40 +110,40 @@ void MemMonitor::UpdateOnce(monitor::proto::MonitorInfo * monitor_info) {
             } catch (const std::exception & e) {
                 // 异常处理：记录日志（示例），不中断整体流程
                 // LOG_WARN("Failed to parse mem field %s: %s", mem_datas[0].c_str(), e.what());
-                Logger::getInstance().error("Failed to parse mem field %s: %s", mem_datas[0].c_str(), e.what());
+                Logger::getInstance().error("Failed to parse mem field");
             }
         }
         mem_datas.clear();
     }
 
     // 单位转换：KB -> GB（1GB = 1024*1024 KB）
-    auto convertKBToGB = [](int64_t kb) {
-        constexpr int64_t KB_TO_GB = 1024 * 1024;
-        return kb / KB_TO_GB;  // 若需更精确可使用double
-    };
+    // auto convertKBToGB = [](int64_t kb) {
+    //     constexpr int64_t KB_TO_GB = 1024 * 1024;
+    //     return kb / KB_TO_GB;  // 若需更精确可使用double
+    // };
 
     // 填充监控信息
     auto * mem_detail = monitor_info->mutable_meminfo();
     mem_detail->set_used_percent(mem_info.total > 0 ? (mem_info.total - mem_info.avail) * 100.0 / mem_info.total : 0.0);
-    mem_detail->set_total(convertKBToGB(mem_info.total));
-    mem_detail->set_free(convertKBToGB(mem_info.free));
-    mem_detail->set_avail(convertKBToGB(mem_info.avail));
-    mem_detail->set_buffers(convertKBToGB(mem_info.buffers));
-    mem_detail->set_cached(convertKBToGB(mem_info.cached));
-    mem_detail->set_swap_cached(convertKBToGB(mem_info.swap_cached));
-    mem_detail->set_active(convertKBToGB(mem_info.active));
-    mem_detail->set_inactive(convertKBToGB(mem_info.in_active));
-    mem_detail->set_active_anon(convertKBToGB(mem_info.active_anon));
-    mem_detail->set_inactive_anon(convertKBToGB(mem_info.inactive_anon));
-    mem_detail->set_active_file(convertKBToGB(mem_info.active_file));
-    mem_detail->set_inactive_file(convertKBToGB(mem_info.inactive_file));
-    mem_detail->set_dirty(convertKBToGB(mem_info.dirty));
-    mem_detail->set_writeback(convertKBToGB(mem_info.writeback));
-    mem_detail->set_anon_pages(convertKBToGB(mem_info.anon_pages));
-    mem_detail->set_mapped(convertKBToGB(mem_info.mapped));
-    mem_detail->set_kreclaimable(convertKBToGB(mem_info.kReclaimable));
-    mem_detail->set_sreclaimable(convertKBToGB(mem_info.sReclaimable));
-    mem_detail->set_sunreclaim(convertKBToGB(mem_info.sUnreclaim));
+    mem_detail->set_total(mem_info.total);
+    mem_detail->set_free(mem_info.free);
+    mem_detail->set_avail(mem_info.avail);
+    mem_detail->set_buffers(mem_info.buffers);
+    mem_detail->set_cached(mem_info.cached);
+    mem_detail->set_swap_cached(mem_info.swap_cached);
+    mem_detail->set_active(mem_info.active);
+    mem_detail->set_inactive(mem_info.in_active);
+    mem_detail->set_active_anon(mem_info.active_anon);
+    mem_detail->set_inactive_anon(mem_info.inactive_anon);
+    mem_detail->set_active_file(mem_info.active_file);
+    mem_detail->set_inactive_file(mem_info.inactive_file);
+    mem_detail->set_dirty(mem_info.dirty);
+    mem_detail->set_writeback(mem_info.writeback);
+    mem_detail->set_anon_pages(mem_info.anon_pages);
+    mem_detail->set_mapped(mem_info.mapped);
+    mem_detail->set_kreclaimable(mem_info.kReclaimable);
+    mem_detail->set_sreclaimable(mem_info.sReclaimable);
+    mem_detail->set_sunreclaim(mem_info.sUnreclaim);
 }
 
 }  // namespace monitor

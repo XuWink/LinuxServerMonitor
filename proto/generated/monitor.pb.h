@@ -35,6 +35,7 @@
 #include "cpu_info.pb.h"
 #include "cpu_load.pb.h"
 #include "cpu_softirqs.pb.h"
+#include "meminfo.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_monitor_2eproto
@@ -192,6 +193,7 @@ class MonitorInfo PROTOBUF_FINAL :
     kSoftIrqsFieldNumber = 4,
     kNameFieldNumber = 1,
     kCpuLoadFieldNumber = 3,
+    kMeminfoFieldNumber = 5,
   };
   // repeated .monitor.proto.CpuInfo cpu_info = 2;
   int cpu_info_size() const;
@@ -263,6 +265,24 @@ class MonitorInfo PROTOBUF_FINAL :
       ::monitor::proto::CpuLoad* cpu_load);
   ::monitor::proto::CpuLoad* unsafe_arena_release_cpu_load();
 
+  // .monitor.proto.MemInfo meminfo = 5;
+  bool has_meminfo() const;
+  private:
+  bool _internal_has_meminfo() const;
+  public:
+  void clear_meminfo();
+  const ::monitor::proto::MemInfo& meminfo() const;
+  ::monitor::proto::MemInfo* release_meminfo();
+  ::monitor::proto::MemInfo* mutable_meminfo();
+  void set_allocated_meminfo(::monitor::proto::MemInfo* meminfo);
+  private:
+  const ::monitor::proto::MemInfo& _internal_meminfo() const;
+  ::monitor::proto::MemInfo* _internal_mutable_meminfo();
+  public:
+  void unsafe_arena_set_allocated_meminfo(
+      ::monitor::proto::MemInfo* meminfo);
+  ::monitor::proto::MemInfo* unsafe_arena_release_meminfo();
+
   // @@protoc_insertion_point(class_scope:monitor.proto.MonitorInfo)
  private:
   class _Internal;
@@ -274,6 +294,7 @@ class MonitorInfo PROTOBUF_FINAL :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::monitor::proto::SoftIrqs > soft_irqs_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::monitor::proto::CpuLoad* cpu_load_;
+  ::monitor::proto::MemInfo* meminfo_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_monitor_2eproto;
 };
@@ -641,6 +662,83 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::monitor::proto::SoftIr
 MonitorInfo::soft_irqs() const {
   // @@protoc_insertion_point(field_list:monitor.proto.MonitorInfo.soft_irqs)
   return soft_irqs_;
+}
+
+// .monitor.proto.MemInfo meminfo = 5;
+inline bool MonitorInfo::_internal_has_meminfo() const {
+  return this != internal_default_instance() && meminfo_ != nullptr;
+}
+inline bool MonitorInfo::has_meminfo() const {
+  return _internal_has_meminfo();
+}
+inline const ::monitor::proto::MemInfo& MonitorInfo::_internal_meminfo() const {
+  const ::monitor::proto::MemInfo* p = meminfo_;
+  return p != nullptr ? *p : reinterpret_cast<const ::monitor::proto::MemInfo&>(
+      ::monitor::proto::_MemInfo_default_instance_);
+}
+inline const ::monitor::proto::MemInfo& MonitorInfo::meminfo() const {
+  // @@protoc_insertion_point(field_get:monitor.proto.MonitorInfo.meminfo)
+  return _internal_meminfo();
+}
+inline void MonitorInfo::unsafe_arena_set_allocated_meminfo(
+    ::monitor::proto::MemInfo* meminfo) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(meminfo_);
+  }
+  meminfo_ = meminfo;
+  if (meminfo) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:monitor.proto.MonitorInfo.meminfo)
+}
+inline ::monitor::proto::MemInfo* MonitorInfo::release_meminfo() {
+  
+  ::monitor::proto::MemInfo* temp = meminfo_;
+  meminfo_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::monitor::proto::MemInfo* MonitorInfo::unsafe_arena_release_meminfo() {
+  // @@protoc_insertion_point(field_release:monitor.proto.MonitorInfo.meminfo)
+  
+  ::monitor::proto::MemInfo* temp = meminfo_;
+  meminfo_ = nullptr;
+  return temp;
+}
+inline ::monitor::proto::MemInfo* MonitorInfo::_internal_mutable_meminfo() {
+  
+  if (meminfo_ == nullptr) {
+    auto* p = CreateMaybeMessage<::monitor::proto::MemInfo>(GetArena());
+    meminfo_ = p;
+  }
+  return meminfo_;
+}
+inline ::monitor::proto::MemInfo* MonitorInfo::mutable_meminfo() {
+  // @@protoc_insertion_point(field_mutable:monitor.proto.MonitorInfo.meminfo)
+  return _internal_mutable_meminfo();
+}
+inline void MonitorInfo::set_allocated_meminfo(::monitor::proto::MemInfo* meminfo) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(meminfo_);
+  }
+  if (meminfo) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(meminfo)->GetArena();
+    if (message_arena != submessage_arena) {
+      meminfo = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, meminfo, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  meminfo_ = meminfo;
+  // @@protoc_insertion_point(field_set_allocated:monitor.proto.MonitorInfo.meminfo)
 }
 
 // -------------------------------------------------------------------
