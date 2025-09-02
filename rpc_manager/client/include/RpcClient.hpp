@@ -15,7 +15,6 @@ class RpcClient {
     RpcClient();
     ~RpcClient();
 
-    // 新增带参数的构造函数
     explicit RpcClient(const std::string & server_address);
 
     bool SetMonitorInfo(const MonitorInfo & monitor_info);
