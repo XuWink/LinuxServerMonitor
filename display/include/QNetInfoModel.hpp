@@ -1,17 +1,19 @@
-#ifndef Q_CPU_SOFT_IRQS_MODEL_
-#define Q_CPU_SOFT_IRQS_MODEL_
+#ifndef Q_NET_INFO_MODEL_
+#define Q_NET_INFO_MODEL_
 
 #include "Logger.hpp"
 #include "monitor.grpc.pb.h"
 #include "QMonitorBase.hpp"
 
-namespace monitor {
+#include <vector>
 
-class QCpuSoftIrqsModel : public QMonitorBase {
+namespace monitor {
+class QNetInfoModel : public QMonitorBase {
     Q_OBJECT
+
   public:
-    explicit QCpuSoftIrqsModel(QObject * parent = nullptr);
-    ~QCpuSoftIrqsModel();
+    explicit QNetInfoModel(QObject * parent = nullptr);
+    ~QNetInfoModel();
 
     // 返回表格的行数
     int      rowCount(const QModelIndex & parent = QModelIndex()) const override;
@@ -26,24 +28,11 @@ class QCpuSoftIrqsModel : public QMonitorBase {
 
 
   private:
-    std::vector<QVariant>              insertOneCpuSoftIrqs(const monitor::proto::SoftIrqs & cpu_SoftIrqs);
+    enum NetModelInfo { NAME = 0, SEND_RATE, RCV_RATE, SEND_PACKETS_RATE, RCV_PACKETS_RATE, COLUMN_MAX };
+
+    std::vector<QVariant>              insertOneNetInfo(const monitor::proto::NetInfo & net_info);
     std::vector<std::vector<QVariant>> monitor_data_;
     QStringList                        header_;
-
-    enum CpuSoftIrqs {
-        CPU_NAME = 0,
-        HI,
-        TIMER,
-        NET_TX,
-        NET_RX,
-        BLOCK,
-        IRQ_POLL,
-        TASKLET,
-        SCHED,
-        HRTIMER,
-        RCU,
-        COLUMN_MAX
-    };
 };
 
 }  // namespace monitor

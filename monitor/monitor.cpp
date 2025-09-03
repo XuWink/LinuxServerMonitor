@@ -3,6 +3,7 @@
 #include "CpuSoftIrqsMonitor.hpp"
 #include "MemInfoMonitor.hpp"
 #include "monitor.grpc.pb.h"
+#include "NetInfoMonitor.hpp"
 #include "RpcClient.hpp"
 
 #include <atomic>
@@ -25,6 +26,7 @@ void RunMonitor() {
     runners.emplace_back(std::make_shared<monitor::CpuLoadMonitor>());
     runners.emplace_back(std::make_shared<monitor::CpuSoftIrqsMonitor>());
     runners.emplace_back(std::make_shared<monitor::MemInfoMonitor>());
+    runners.emplace_back(std::make_shared<monitor::NetInfoMonitor>());
 
     // 注册信号处理（可选）
     signal(SIGINT, SignalHandler);

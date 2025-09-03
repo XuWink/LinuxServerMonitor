@@ -36,6 +36,7 @@
 #include "cpu_load.pb.h"
 #include "cpu_softirqs.pb.h"
 #include "meminfo.pb.h"
+#include "netinfo.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_monitor_2eproto
@@ -191,6 +192,7 @@ class MonitorInfo PROTOBUF_FINAL :
   enum : int {
     kCpuInfoFieldNumber = 2,
     kSoftIrqsFieldNumber = 4,
+    kNetInfoFieldNumber = 6,
     kNameFieldNumber = 1,
     kCpuLoadFieldNumber = 3,
     kMeminfoFieldNumber = 5,
@@ -230,6 +232,24 @@ class MonitorInfo PROTOBUF_FINAL :
   ::monitor::proto::SoftIrqs* add_soft_irqs();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::monitor::proto::SoftIrqs >&
       soft_irqs() const;
+
+  // repeated .monitor.proto.NetInfo net_info = 6;
+  int net_info_size() const;
+  private:
+  int _internal_net_info_size() const;
+  public:
+  void clear_net_info();
+  ::monitor::proto::NetInfo* mutable_net_info(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::monitor::proto::NetInfo >*
+      mutable_net_info();
+  private:
+  const ::monitor::proto::NetInfo& _internal_net_info(int index) const;
+  ::monitor::proto::NetInfo* _internal_add_net_info();
+  public:
+  const ::monitor::proto::NetInfo& net_info(int index) const;
+  ::monitor::proto::NetInfo* add_net_info();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::monitor::proto::NetInfo >&
+      net_info() const;
 
   // string name = 1;
   void clear_name();
@@ -292,6 +312,7 @@ class MonitorInfo PROTOBUF_FINAL :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::monitor::proto::CpuInfo > cpu_info_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::monitor::proto::SoftIrqs > soft_irqs_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::monitor::proto::NetInfo > net_info_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::monitor::proto::CpuLoad* cpu_load_;
   ::monitor::proto::MemInfo* meminfo_;
@@ -739,6 +760,42 @@ inline void MonitorInfo::set_allocated_meminfo(::monitor::proto::MemInfo* meminf
   }
   meminfo_ = meminfo;
   // @@protoc_insertion_point(field_set_allocated:monitor.proto.MonitorInfo.meminfo)
+}
+
+// repeated .monitor.proto.NetInfo net_info = 6;
+inline int MonitorInfo::_internal_net_info_size() const {
+  return net_info_.size();
+}
+inline int MonitorInfo::net_info_size() const {
+  return _internal_net_info_size();
+}
+inline ::monitor::proto::NetInfo* MonitorInfo::mutable_net_info(int index) {
+  // @@protoc_insertion_point(field_mutable:monitor.proto.MonitorInfo.net_info)
+  return net_info_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::monitor::proto::NetInfo >*
+MonitorInfo::mutable_net_info() {
+  // @@protoc_insertion_point(field_mutable_list:monitor.proto.MonitorInfo.net_info)
+  return &net_info_;
+}
+inline const ::monitor::proto::NetInfo& MonitorInfo::_internal_net_info(int index) const {
+  return net_info_.Get(index);
+}
+inline const ::monitor::proto::NetInfo& MonitorInfo::net_info(int index) const {
+  // @@protoc_insertion_point(field_get:monitor.proto.MonitorInfo.net_info)
+  return _internal_net_info(index);
+}
+inline ::monitor::proto::NetInfo* MonitorInfo::_internal_add_net_info() {
+  return net_info_.Add();
+}
+inline ::monitor::proto::NetInfo* MonitorInfo::add_net_info() {
+  // @@protoc_insertion_point(field_add:monitor.proto.MonitorInfo.net_info)
+  return _internal_add_net_info();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::monitor::proto::NetInfo >&
+MonitorInfo::net_info() const {
+  // @@protoc_insertion_point(field_list:monitor.proto.MonitorInfo.net_info)
+  return net_info_;
 }
 
 // -------------------------------------------------------------------

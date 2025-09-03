@@ -9,6 +9,7 @@ QMonitorMainWidget::QMonitorMainWidget(const std::string & name, QWidget * paren
     stack_content_->addWidget(initCpuMonitorWidget());
     stack_content_->addWidget(initSoftIrqsMonitorWidget());
     stack_content_->addWidget(initMemInfoMonitorWidget());
+    stack_content_->addWidget(initNetInfoMonitorWidget());
 
     // 组装主界面
     auto * mainLayout = new QGridLayout(this);
@@ -158,6 +159,29 @@ QWidget * QMonitorMainWidget::initMemInfoMonitorWidget() {
     return widget;
 }
 
+// todo
+QWidget * QMonitorMainWidget::initNetInfoMonitorWidget() {
+    QWidget * widget = new QWidget(this);
+    widget->setObjectName("netInfoMonitorWidgetPage");
+
+    QLabel * netLabel = new QLabel(tr("网络信息："), widget);
+    netLabel->setStyleSheet("color: #333333; padding: 4px 0;");
+
+    net_info_view_  = new QTableView(widget);
+    net_info_model_ = new QNetInfoModel(net_info_view_);  // 将模型父对象设为视图，便于自动释放
+    net_info_view_->setModel(net_info_model_);
+    QFont tableFont("WenQuanYi Micro Hei", 9);
+    setupTableViewStyle(net_info_view_, tableFont);
+
+    QGridLayout * layout = new QGridLayout(widget);
+    layout->setContentsMargins(10, 10, 10, 10);  // 设置边距
+    layout->setSpacing(8);                       // 设置控件间距
+    layout->addWidget(netLabel, 1, 0);           // 从第0行开始布局，更符合常规习惯
+    layout->addWidget(net_info_view_, 2, 0);     // 表格控件占满一行
+
+    return widget;
+}
+
 // 表格样式设置的通用函数
 void QMonitorMainWidget::setupTableViewStyle(QTableView * tableView, const QFont & font) {
     if (!tableView) {
@@ -190,8 +214,8 @@ QWidget * QMonitorMainWidget::initButtonMenu(const std::string & name) {
     const QList<ButtonInfo> infos = {
         { "cpu",      &QMonitorMainWidget::clickCpuButton     },
         { "软中断",   &QMonitorMainWidget::clickSoftIrqButton },
-        { "内存信息", &QMonitorMainWidget::clickMemInfoButton }
-        // {"net", SLOT(clickNetButton())}
+        { "内存信息", &QMonitorMainWidget::clickMemInfoButton },
+        { "网络信息", &QMonitorMainWidget::clickNetInfoButton }
     };
 
     // 2. 用栈对象保存字体，无需手动delete
@@ -214,19 +238,11 @@ QWidget * QMonitorMainWidget::initButtonMenu(const std::string & name) {
 
 // 更新数据
 void QMonitorMainWidget::updateData(const monitor::proto::MonitorInfo & monitor_info) {
-    // std::stringstream ss;
-    // ss << "CPU LOAD: "
-    //    << "load1: " << monitor_info.cpu_load().load1() << ", "
-    //    << "load5: " << monitor_info.cpu_load().load5() << ", "
-    //    << "load15: " << monitor_info.cpu_load().load15() << ", "
-    //    << "running_total: " << monitor_info.cpu_load().running_total() << ", "
-    //    << "last_pid: " << monitor_info.cpu_load().last_pid();
-    // Logger::getInstance().info(ss.str());
-
     cpu_info_model_->updateMonitorInfo(monitor_info);
     cpu_load_model_->updateMonitorInfo(monitor_info);
     cpu_softirqs_model_->updateMonitorInfo(monitor_info);
     mem_model_->updateMonitorInfo(monitor_info);
+    net_info_model_->updateMonitorInfo(monitor_info);
 }
 
 // 槽函数
@@ -240,6 +256,10 @@ void QMonitorMainWidget::clickSoftIrqButton() {
 
 void QMonitorMainWidget::clickMemInfoButton() {
     stack_content_->setCurrentIndex(2);
+}
+
+void QMonitorMainWidget::clickNetInfoButton() {
+    stack_content_->setCurrentIndex(3);
 }
 
 void QMonitorMainWidget::setWindowSize() {

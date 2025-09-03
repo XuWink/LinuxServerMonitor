@@ -8,6 +8,10 @@ MonitorWorker::MonitorWorker(QObject * parent) : QObject(parent), pollTimer_(thi
     connect(&pollTimer_, &QTimer::timeout, this, &MonitorWorker::doPoll);
 }
 
+MonitorWorker::~MonitorWorker() {
+    // stopPolling();
+}
+
 void MonitorWorker::startPolling() {
     if (running_) {
         return;  // 避免重复调用

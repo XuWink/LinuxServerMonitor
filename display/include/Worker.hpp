@@ -12,6 +12,7 @@ class MonitorWorker : public QObject {
     Q_OBJECT
   public:
     explicit MonitorWorker(QObject * parent = nullptr);
+    ~MonitorWorker();
 
   public slots:
     void startPolling();

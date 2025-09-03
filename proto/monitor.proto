@@ -9,6 +9,7 @@ import "cpu_info.proto";
 import "cpu_load.proto";
 import "cpu_softirqs.proto";
 import "meminfo.proto";
+import "netinfo.proto";
 
 message MonitorInfo {
     string name = 1;                    // monitor名字
@@ -16,6 +17,7 @@ message MonitorInfo {
     CpuLoad cpu_load = 3;
     repeated SoftIrqs soft_irqs = 4;
     MemInfo meminfo = 5;
+    repeated NetInfo net_info = 6;
 }
 
 message AllMonitorInfo {

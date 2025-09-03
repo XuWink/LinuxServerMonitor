@@ -66,6 +66,17 @@
         "forward_list": "cpp",
         "list": "cpp",
         "unordered_set": "cpp",
-        "any": "cpp"
+        "any": "cpp",
+        "typeindex": "cpp",
+        "cstring": "cpp",
+        "strstream": "cpp",
+        "bitset": "cpp",
+        "complex": "cpp",
+        "map": "cpp",
+        "set": "cpp",
+        "future": "cpp",
+        "cfenv": "cpp",
+        "cinttypes": "cpp",
+        "valarray": "cpp"
     }
 }
